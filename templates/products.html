@@ -1,0 +1,223 @@
+{% extends "base.html" %} {% block title %}Products | Greenfield Local Hub{%
+endblock %} {% block content %}
+<section class="products-page">
+  <div class="container">
+    <div class="products-page-header">
+      <h1>Our Products</h1>
+      <p>Fresh, local produce delivered from our trusted producers</p>
+    </div>
+    
+    <!-- Search and category filters sit together here so product discovery feels straightforward from the start. -->
+    <div class="products-producers-control">
+      <div class="search-bar">
+        <div class="search-bar_field">
+          <span class="search-bar_icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z"
+                stroke="#2E2E2E"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M17.5001 17.5L13.9167 13.9167"
+                stroke="#2E2E2E"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            type="text"
+            id="productSearch"
+            class="search-bar_input form-control"
+            placeholder="Search products..."
+            aria-label="Search products"
+          />
+        </div>
+      </div>
+
+      <div class="products-filters">
+        <span class="products-filters_label">Category:</span>
+        <div class="products-filters_list">
+          <button
+            type="button"
+            class="btn-primary btn products-filter-btn is-active"
+            data-category="all"
+          >
+            All Products
+          </button>
+          {% for category in categories %}
+          <button
+            type="button"
+            class="products-filter-btn btn btn-secondary"
+            data-category="{{ category }}"
+          >
+            {{ category }}
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <p class="products-results" id="productsResults">
+      Showing {{ products|length }} products
+    </p>
+
+    <!-- Product cards are rendered as a grid to keep browsing fast and visually consistent. -->
+    <div class="products-grid" id="productsGrid">
+      {% for product in products %}
+      <!-- Each card carries the display content and the data attributes used by the client-side filters. -->
+      <article
+        class="products-card"
+        data-name="{{ product['name']|lower }}"
+        data-description="{{ product['description']|lower }}"
+        data-category="{{ product['category']|lower }}"
+        data-producer="{{ product['business_name']|lower }}"
+      >
+        <a
+          href="{{ url_for('product_detail', product_id=product['product_id']) }}"
+          class="products-card_link"
+        >
+          <div class="products-card_image">
+            <img
+              src="{{ product['image_url'] }}"
+              alt="{{ product['name'] }} from {{ product['business_name'] }}"
+            />
+          </div>
+
+          <div class="products-card_content">
+            <h2>{{ product['name'] }}</h2>
+            <p class="products-card_producer">
+              {{ product['business_name'] }}
+            </p>
+            <p class="products-card_description">
+              {{ product['description'] }}
+            </p>
+
+            <div class="products-card_meta">
+              <div>
+                <strong class="products-card_price"
+                  >£{{ '%.2f'|format(product['price']) }}</strong
+                >
+                <span class="products-card_unit">per item</span>
+              </div>
+              <span class="products-card_stock"
+                >{{ product['stock'] }} in stock</span
+              >
+            </div>
+          </div>
+        </a>
+
+        <form
+          method="POST"
+          action="{{ url_for('add_to_cart', product_id=product['product_id']) }}"
+          class="products-card_form"
+        >
+          <input type="hidden" name="quantity" value="1" />
+          <button type="submit" class="products-card_button btn btn-primary">
+            <span class="products-card_button-icon" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_35_1347)">
+                  <path
+                    d="M5.33341 14.6666C5.7016 14.6666 6.00008 14.3682 6.00008 14C6.00008 13.6318 5.7016 13.3333 5.33341 13.3333C4.96522 13.3333 4.66675 13.6318 4.66675 14C4.66675 14.3682 4.96522 14.6666 5.33341 14.6666Z"
+                    stroke="white"
+                    stroke-width="1.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12.6667 14.6666C13.0349 14.6666 13.3333 14.3682 13.3333 14C13.3333 13.6318 13.0349 13.3333 12.6667 13.3333C12.2985 13.3333 12 13.6318 12 14C12 14.3682 12.2985 14.6666 12.6667 14.6666Z"
+                    stroke="white"
+                    stroke-width="1.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M1.3667 1.36664H2.70003L4.47337 9.64664C4.53842 9.94988 4.70715 10.221 4.95051 10.4132C5.19387 10.6055 5.49664 10.7069 5.8067 10.7H12.3267C12.6301 10.6995 12.9244 10.5955 13.1607 10.4052C13.3971 10.2149 13.5615 9.94966 13.6267 9.6533L14.7267 4.69997H3.41337"
+                    stroke="white"
+                    stroke-width="1.33333"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_35_1347">
+                    <rect width="16" height="16" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </span>
+            <span>Add to Cart</span>
+          </button>
+        </form>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("productSearch");
+    const filterButtons = document.querySelectorAll(".products-filter-btn");
+    const cards = Array.from(document.querySelectorAll(".products-card"));
+    const results = document.getElementById("productsResults");
+    let activeCategory = "all";
+
+    function updateResults() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach(function (card) {
+        const matchesCategory =
+          activeCategory === "all" ||
+          card.dataset.category === activeCategory.toLowerCase();
+        const stack = [
+          card.dataset.name,
+          card.dataset.description,
+          card.dataset.producer,
+        ].join(" ");
+        const matchesQuery = stack.includes(query);
+        const isVisible = matchesCategory && matchesQuery;
+
+        card.style.display = isVisible ? "" : "none";
+        if (isVisible) visibleCount += 1;
+      });
+
+      results.textContent =
+        "Showing " +
+        visibleCount +
+        " product" +
+        (visibleCount === 1 ? "" : "s");
+    }
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activeCategory = button.dataset.category;
+        filterButtons.forEach(function (item) {
+          item.classList.toggle("is-active", item === button);
+        });
+        updateResults();
+      });
+    });
+
+    searchInput.addEventListener("input", updateResults);
+    updateResults();
+  });
+</script>
+{% endblock %}

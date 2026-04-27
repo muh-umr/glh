@@ -1,0 +1,128 @@
+<!-- Profile details are shown in a read-first layout so the page feels calm before editing begins. -->
+<section class="customer-account-panel customer-profile-panel">
+  <div class="profile-card">
+    <div class="card-content">
+      <h2 class="card-title">Profile Information</h2>
+
+      <div class="profile-details">
+        <div class="detail-row">
+          <div class="detail-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12.0003 12C14.2095 12 16.0003 10.2091 16.0003 8C16.0003 5.79086 14.2095 4 12.0003 4C9.79119 4 8.00033 5.79086 8.00033 8C8.00033 10.2091 9.79119 12 12.0003 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.33366 20C5.33366 18.232 6.03599 16.5362 7.28623 15.286C8.53647 14.0357 10.2322 13.3334 12.0003 13.3334C13.7684 13.3334 15.4641 14.0357 16.7144 15.286C17.9646 16.5362 18.667 18.232 18.667 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="detail-text">
+            <span class="detail-label">Name</span>
+            <span class="detail-value">{{ customer['name'] }}</span>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20 5.33331H4C3.26362 5.33331 2.66667 5.93027 2.66667 6.66665V17.3333C2.66667 18.0697 3.26362 18.6666 4 18.6666H20C20.7364 18.6666 21.3333 18.0697 21.3333 17.3333V6.66665C21.3333 5.93027 20.7364 5.33331 20 5.33331Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21.3333 8L13.3733 13.0666C12.963 13.3237 12.4886 13.4599 12.0043 13.4599C11.52 13.4599 11.0456 13.3237 10.6353 13.0666L2.66667 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="detail-text">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">{{ customer['email'] }}</span>
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M20 10C20 14.16 15.384 18.4933 13.834 19.8333C13.6896 19.9419 13.5138 20.0006 13.3332 20.0006C13.1525 20.0006 12.9768 19.9419 12.8323 19.8333C11.2823 18.4933 6.6665 14.16 6.6665 10C6.6665 8.23189 7.36888 6.5362 8.61912 5.28596C9.86936 4.03571 11.5651 3.33334 13.3332 3.33334C15.1013 3.33334 16.797 4.03571 18.0472 5.28596C19.2975 6.5362 20 8.23189 20 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M13.3333 12.5C14.714 12.5 15.8333 11.3807 15.8333 10C15.8333 8.61929 14.714 7.5 13.3333 7.5C11.9526 7.5 10.8333 8.61929 10.8333 10C10.8333 11.3807 11.9526 12.5 13.3333 12.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="detail-text">
+            <span class="detail-label">Address</span>
+            <span class="detail-value">{{ customer['address'] or 'No address added yet' }}</span>
+          </div>
+        </div>
+      </div>
+
+<div class="profile-actions">
+<button type="button" data-open-modal="editProfileModal" class="edit-btn btn btn-secondary">
+    Edit Profile
+  </button>
+
+  <button type="button" class="delete-btn btn btn-danger" data-delete-account>
+              Delete Account
+            </button>
+
+
+            <div class="modal-overlay" id="deleteAccountModal">
+              <div class="modal-box">
+                <div class="modal-header">
+                  <h2>Delete Account</h2>
+                  <button type="button" class="close-modal-btn" data-close-modal="deleteAccountModal">
+                    &times;
+                  </button>
+                </div>
+
+                <form method="POST" action="{{ url_for('delete_account') }}" class="edit-delete-form"
+                  id="deleteAccountForm">
+                  <p id="deleteAccountMessage">
+                    Are you sure you want to delete your account? This action cannot be undone.
+                  </p>
+
+                  <div class="modal-actions">
+                    <button type="button" class="cancel-btn btn btn-secondary" data-close-modal="deleteAccountModal">
+                      Cancel
+                    </button>
+
+                    <button type="submit" class="btn-primary btn btn-danger">
+                      Delete Account
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+</div>
+      
+    </div>
+    
+  </div>
+</section>
+
+<!-- The edit profile form lives in a modal so account updates do not break the dashboard flow. -->
+<div class="modal-overlay" id="editProfileModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Edit Profile</h2>
+<button type="button" class="close-modal-btn" data-close-modal="editProfileModal">&times;</button>
+    </div>
+
+    <form method="POST" action="{{ url_for('customer_profile') }}" class="edit-delete-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{ customer['name'] }}" required class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ customer['email'] }}" required class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="phone_number">Phone Number</label>
+        <input type="text" id="phone_number" name="phone_number" value="{{ customer['phone_number'] }}" required class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="3" class="form-control">{{ customer['address'] or '' }}</textarea>
+      </div>
+
+      <div class="modal-actions">
+<button type="button" data-close-modal="editProfileModal" class="cancel-btn btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+

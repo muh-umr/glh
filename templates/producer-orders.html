@@ -1,0 +1,170 @@
+{% extends "base.html" %} {% block title %}Orders Management | Greenfield Local Hub {% endblock %} 
+
+{% block content %} 
+
+{% set pending_statuses = ['Confirmed',
+'Preparing'] %} {% set active_statuses = ['Ready for Collection', 'Out for
+Delivery'] %} 
+
+{% set counts = namespace(pending=0, active=0, completed=0) %} {% for order in orders %} {% if order.status in pending_statuses %} {% set counts.pending = counts.pending + 1 %} {% elif order.status in active_statuses %} {% set counts.active = counts.active + 1 %} {% else %} {% set counts.completed = counts.completed + 1 %} {% endif %} {% endfor %}
+
+<section class="producer-orders-page">
+  <div class="producer-orders-container">
+    <header class="producer-orders-header">
+      <div class="title-group">
+        <h1>Orders Management</h1>
+        <p>Manage and track orders for your products</p>
+      </div>
+    </header>
+
+    <div class="producer-orders-stats">
+      <article class="producer-orders-stat producer-orders-stat--pending">
+        <div>
+          <span>Pending Orders</span>
+          <strong>{{ counts.pending }}</strong>
+        </div>
+        <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <circle cx="24" cy="24" r="19" stroke="currentColor" stroke-width="4" />
+          <path d="M24 13V24L31 28" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </article>
+      <article class="producer-orders-stat producer-orders-stat--active">
+        <div>
+          <span>Active Orders</span>
+          <strong>{{ counts.active }}</strong>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <g opacity="0.5">
+            <path
+              d="M18.3333 36.2167C18.8401 36.5092 19.4149 36.6633 20 36.6633C20.5851 36.6633 21.1599 36.5092 21.6667 36.2167L33.3333 29.55C33.8396 29.2577 34.26 28.8375 34.5526 28.3314C34.8451 27.8253 34.9994 27.2512 35 26.6667V13.3333C34.9994 12.7488 34.8451 12.1747 34.5526 11.6686C34.26 11.1625 33.8396 10.7423 33.3333 10.45L21.6667 3.78334C21.1599 3.49078 20.5851 3.33676 20 3.33676C19.4149 3.33676 18.8401 3.49078 18.3333 3.78334L6.66667 10.45C6.16044 10.7423 5.73997 11.1625 5.44744 11.6686C5.1549 12.1747 5.0006 12.7488 5 13.3333V26.6667C5.0006 27.2512 5.1549 27.8253 5.44744 28.3314C5.73997 28.8375 6.16044 29.2577 6.66667 29.55L18.3333 36.2167Z"
+              stroke="currentColor" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M20 36.6667V20" stroke="currentColor" stroke-width="3.33333" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M5.48242 11.6667L19.9991 20L34.5158 11.6667" stroke="currentColor" stroke-width="3.33333"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12.5 7.11667L27.5 15.7" stroke="currentColor" stroke-width="3.33333" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+        </svg>
+      </article>
+      <article class="producer-orders-stat producer-orders-stat--completed">
+        <div>
+          <span>Completed</span>
+          <strong>{{ counts.completed }}</strong>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <g opacity="0.5">
+            <path
+              d="M36.3357 16.6667C37.0968 20.4022 36.5544 24.2857 34.7987 27.6697C33.0431 31.0536 30.1805 33.7334 26.6882 35.2622C23.1959 36.791 19.285 37.0763 15.6078 36.0706C11.9306 35.0649 8.70931 32.829 6.48111 29.7357C4.25292 26.6424 3.15252 22.8787 3.36343 19.0723C3.57433 15.2659 5.08379 11.6468 7.64007 8.81863C10.1964 5.99043 13.645 4.12406 17.4108 3.53077C21.1766 2.93747 25.032 3.65311 28.334 5.55835"
+              stroke="currentColor" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 18.3333L20 23.3333L36.6667 6.66666" stroke="currentColor" stroke-width="3.33333"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </svg>
+      </article>
+    </div>
+
+    <div class="orders-header">
+      <div class="producer-orders-tabs">
+        <button type="button" class="producer-orders-tab btn btn-secondary active" data-orders-tab="pending">
+          Pending ({{ counts.pending }})
+        </button>
+        <button type="button" class="producer-orders-tab btn btn-secondary" data-orders-tab="active">
+          Active ({{ counts.active }})
+        </button>
+        <button type="button" class="producer-orders-tab btn btn-secondary" data-orders-tab="completed">
+          Completed ({{ counts.completed }})
+        </button>
+      </div>
+      <div class="export-orders">
+        <a href="{{ url_for('export_producer_orders') }}" class="btn btn-secondary">
+          Export Orders
+        </a>
+      </div>
+    </div>
+
+    <section class="producer-orders-panel">
+      {% if orders %}
+      <div class="producer-orders-list">
+        {% for order in orders %} {% if order.status in pending_statuses %} {%
+        set order_group = 'pending' %} {% elif order.status in active_statuses
+        %} {% set order_group = 'active' %} {% else %} {% set order_group =
+        'completed' %} {% endif %}
+
+        <!-- Each order card keeps customer, item, and status details together so updates can be made with context. -->
+        <article class="producer-orders-card" data-orders-group="{{ order_group }}">
+          <div class="producer-orders-card_top">
+            <div>
+              <h2>Order #{{ order.order_id }}</h2>
+              <p>
+                {{ order.customer_name }} • {{ order.customer_email }} • {{
+                order.customer_phone }}
+              </p>
+            </div>
+            <div class="producer-orders-card_summary">
+              <span class="producer-orders-status producer-orders-status--{{ order_group }}">{{ order.status }}</span>
+              <strong>£{{ '%.2f'|format(order.producer_total) }}</strong>
+            </div>
+          </div>
+
+          <div class="producer-orders-card_meta">
+            <span>{{ order.collection_or_delivery }}</span>
+            <span>Placed: {{ order.order_date }}</span>
+            {% if order.scheduled_date or order.scheduled_slot %}
+            <span>Scheduled: {{ order.scheduled_date }}{% if order.scheduled_slot
+              %} • {{ order.scheduled_slot }}{% endif %}</span>
+            {% endif %}
+          </div>
+
+          <div class="producer-orders-items">
+            {% for item in order["items"] %}
+            <div class="producer-orders-items_row">
+              <span>{{ item.name }} × {{ item.quantity }}</span>
+              <span>£{{ '%.2f'|format(item.quantity * item.price_at_purchase)
+                }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          
+<!-- Status update controls stay inside the card so the current order state is visible when a change is made. -->
+          {% if order.next_statuses %}
+          <form method="POST" action="{{ url_for('update_producer_order_status', order_id=order.order_id) }}"
+            class="producer-orders-update">
+            <label for="status-{{ order.order_id }}">Update Status</label>
+            <div class="producer-orders-update_controls">
+              <select id="status-{{ order.order_id }}" name="status" required class="form-control">
+                {% for next_status in order.next_statuses %}
+                <option value="{{ next_status }}">{{ next_status }}</option>
+                {% endfor %}
+              </select>
+              <button type="submit" class="btn btn-primary ">Save Status</button>
+            </div>
+          </form>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </div>
+      <div class="producer-orders-empty" id="producerOrdersEmpty">
+        <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <circle cx="40" cy="40" r="28" stroke="currentColor" stroke-width="4" />
+          <path d="M40 25V40L50 46" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <p>No pending orders</p>
+      </div>
+      {% else %}
+      <div class="producer-orders-empty producer-orders-empty--static">
+        <svg viewBox="0 0 80 80" fill="none" aria-hidden="true">
+          <circle cx="40" cy="40" r="28" stroke="currentColor" stroke-width="4" />
+          <path d="M40 25V40L50 46" stroke="currentColor" stroke-width="4" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <p>No orders containing your products yet.</p>
+      </div>
+      {% endif %}
+    </section>
+  </div>
+</section>
+
+{% endblock %}

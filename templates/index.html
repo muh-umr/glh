@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Home page
+ shop now icon -->
+
+<!-- Opening hero section that sets the tone for the marketplace and pushes users toward browsing or joining. -->
+<section id="hero-section">
+  <div class="hero-wrapper">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Fresh, Local Food Delivered to Your Door</h1>
+        <p>
+          Supporting local farmers and producers. 100% traceable, sustainable,
+          and delicious products from the Greenfield community.
+        </p>
+        <div class="hero-buttons">
+          <a href="{{url_for('products')}}" class="btn btn-primary">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+              fill="none">
+              <path
+                d="M5 1.66669L2.5 5.00002V16.6667C2.5 17.1087 2.67559 17.5326 2.98816 17.8452C3.30072 18.1578 3.72464 18.3334 4.16667 18.3334H15.8333C16.2754 18.3334 16.6993 18.1578 17.0118 17.8452C17.3244 17.5326 17.5 17.1087 17.5 16.6667V5.00002L15 1.66669H5Z"
+                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M2.5 5H17.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path
+                d="M13.3334 8.33331C13.3334 9.21737 12.9822 10.0652 12.357 10.6903C11.7319 11.3155 10.8841 11.6666 10 11.6666C9.11597 11.6666 8.26812 11.3155 7.643 10.6903C7.01788 10.0652 6.66669 9.21737 6.66669 8.33331"
+                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Shop Now
+          </a>
+          <a href="{{url_for('producers')}}" class="btn btn-secondary">Meet Our Producers</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="image-card">
+          <img src="static/images/homepage.png" alt="Fresh local produce at farmers market" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Why Buy Local?</h2>
+    </div>
+
+    <!-- Quick feature overview so visitors can understand the value of the platform without scrolling too far. -->
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M14.6667 26.6667C12.3254 26.6738 10.067 25.8007 8.33937 24.2206C6.61172 22.6404 5.54103 20.4687 5.33966 18.1361C5.13829 15.8036 5.82093 13.4805 7.25221 11.6277C8.68349 9.77483 10.7589 8.5276 13.0667 8.13333C20.6667 6.66666 22.6667 5.97333 25.3333 2.66666C26.6667 5.33333 28 8.24 28 13.3333C28 20.6667 21.6267 26.6667 14.6667 26.6667Z"
+                stroke="#2B4625" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M2.66663 28C2.66663 24 5.13329 20.8533 9.43996 20C12.6666 19.36 16 17.3333 17.3333 16"
+                stroke="currentColor" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Environmental Impact</h3>
+            <p>
+              Reduce food miles and carbon footprint. Our producers are all
+              within 10 miles of the hub, meaning fresher food and lower
+              emissions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M21.3334 28V25.3333C21.3334 23.9188 20.7715 22.5623 19.7713 21.5621C18.7711 20.5619 17.4146 20 16.0001 20H8.00008C6.58559 20 5.22904 20.5619 4.22885 21.5621C3.22865 22.5623 2.66675 23.9188 2.66675 25.3333V28"
+                stroke="#2B4625" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M12.0001 14.6667C14.9456 14.6667 17.3334 12.2789 17.3334 9.33333C17.3334 6.38781 14.9456 4 12.0001 4C9.05456 4 6.66675 6.38781 6.66675 9.33333C6.66675 12.2789 9.05456 14.6667 12.0001 14.6667Z"
+                stroke="#2B4625" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M29.3333 28V25.3333C29.3324 24.1516 28.9391 23.0037 28.2151 22.0698C27.4911 21.1358 26.4774 20.4688 25.3333 20.1733"
+                stroke="#2B4625" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M21.3333 4.17333C22.4805 4.46707 23.4973 5.13427 24.2234 6.06975C24.9496 7.00523 25.3437 8.15577 25.3437 9.34C25.3437 10.5242 24.9496 11.6748 24.2234 12.6103C23.4973 13.5457 22.4805 14.2129 21.3333 14.5067"
+                stroke="currentColor" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Community Support</h3>
+            <p>
+              Every purchase directly supports local farming families and small
+              businesses, keeping money in our community.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <div class="feature-content">
+          <div class="icon-circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M29.3334 9.33334L18.0001 20.6667L11.3334 14L2.66675 22.6667" stroke="#2B4625"
+                stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M21.3333 9.33334H29.3333V17.3333" stroke="currentColor" stroke-width="2.66667"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="feature-text">
+            <h3>Quality & Freshness</h3>
+            <p>
+              Products are harvested at peak ripeness and delivered within days.
+              Taste the difference that freshness makes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured producers section gives the homepage a human face instead of feeling like a generic catalogue. -->
+<section id="producers-section">
+  <div class="container producers-panel">
+    <div class="section-header">
+      <h2>Meet Our Producers</h2>
+      <p class="subtitle">The passionate people behind your food</p>
+    </div>
+
+    <div class="producers-grid">
+      {% for producer in producers %}
+      <div class="producer-card">
+        <div class="card-image">
+          <img src="{{ producer['image_url'] or '/static/images/default-producer.jpg' }}"
+            alt="Profile photo for {{ producer['business_name'] }}" />
+        </div>
+        <div class="card-content">
+          <h3>{{ producer['business_name'] }}</h3>
+          <p class="location">{{ producer['business_address'] }}</p>
+          <p class="description">
+            {{ producer['description'] or 'Local producer profile coming soon.' }}
+          </p>
+          <a href="{{ url_for('producer_public_profile', producer_id=producer['producer_id']) }}"
+            class="learn-more text-link">
+            Learn more →
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+    <div class="view-all-container">
+      <a href="{{url_for('producers')}}" class="btn btn-secondary">View All Producers</a>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- This section reinforces the local, traceable, and sustainability message behind the brand. -->
+<section id="commitment-section">
+  <div class="container commitment-panel">
+    <div class="section-header">
+      <h2>Our Commitment</h2>
+    </div>
+
+    <div class="commitment-grid">
+      <!-- Item 1 -->
+      <div class="commitment-item">
+        <div class="icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M15.477 12.89L16.992 21.416C17.009 21.5164 16.9949 21.6196 16.9516 21.7118C16.9084 21.8039 16.838 21.8807 16.7499 21.9318C16.6619 21.9829 16.5603 22.0059 16.4588 21.9977C16.3573 21.9895 16.2607 21.9506 16.182 21.886L12.602 19.199C12.4292 19.0699 12.2192 19.0001 12.0035 19.0001C11.7878 19.0001 11.5778 19.0699 11.405 19.199L7.819 21.885C7.74032 21.9494 7.64386 21.9884 7.54249 21.9966C7.44112 22.0048 7.33967 21.9818 7.25166 21.9309C7.16365 21.8799 7.09327 21.8033 7.04991 21.7113C7.00656 21.6194 6.99228 21.5163 7.009 21.416L8.523 12.89"
+              stroke="#2B4625" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 14C15.3137 14 18 11.3137 18 8C18 4.68629 15.3137 2 12 2C8.68629 2 6 4.68629 6 8C6 11.3137 8.68629 14 12 14Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="item-text">
+          <h3>Quality Guaranteed</h3>
+          <p>
+            Every product meets our strict quality standards. Not happy? We'll
+            make it right.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="commitment-item">
+        <div class="icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M19 14C20.49 12.54 22 10.79 22 8.5C22 7.04131 21.4205 5.64236 20.3891 4.61091C19.3576 3.57946 17.9587 3 16.5 3C14.74 3 13.5 3.5 12 5C10.5 3.5 9.26 3 7.5 3C6.04131 3 4.64236 3.57946 3.61091 4.61091C2.57946 5.64236 2 7.04131 2 8.5C2 10.8 3.5 12.55 5 14L12 21L19 14Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="item-text">
+          <h3>Loyalty Rewards</h3>
+          <p>
+            Earn points with every purchase. Enjoy exclusive discounts and
+            special offers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="commitment-item">
+        <div class="icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="24" viewBox="0 0 28 24" fill="none">
+            <path
+              d="M5.52681 20.9571C4.841 20.2648 4.4981 19.4219 4.4981 
+              18.4286H2.21382C2.01372 18.4286 1.8465 18.36 1.71215 18.2229C1.57781 
+              18.0857 1.51017 17.9157 1.50923 17.7129C1.50829 17.51 1.57593 17.3405
+               1.71215 17.2043C1.84838 17.0681 2.0156 17 2.21382 17H4.85885C5.11345 
+               16.3648 5.52446 15.8486 6.09189 15.4514C6.65932 15.0552 7.30237 14.8571 
+               8.02106 14.8571C8.73974 14.8571 9.38326 15.0552 9.95163 15.4514C10.5181 
+               15.8486 10.9287 16.3648 11.1833 17H17.6909L20.7854 3.42857H6.20603C6.00593 
+               3.42857 5.83823 3.36 5.70295 3.22286C5.56767 3.08571 5.5005 2.91571 5.50144 
+               2.71286C5.50238 2.51 5.56955 2.34048 5.70295 2.20429C5.83636 2.0681 6.00405 
+               2 6.20603 2H21.1109C21.4717 2 21.7657 2.14667 21.9931 2.44C22.2214 2.73333 
+               22.2946 3.06 22.2129 3.42L21.4055 7H23.1965C23.5573 7 23.8988 7.0819 24.221 
+               7.24571C24.5442 7.40857 24.81 7.63429 25.0186 7.92286L27.5509 11.3486C27.7557 
+               11.6267 27.8886 11.9167 27.9497 12.2186C28.0117 12.5195 28.0164 12.8357 27.9638 
+               13.1671L27.1211 17.5057C27.0685 17.7838 26.9351 18.0071 26.7209 18.1757C26.5067 
+               18.3443 26.2634 18.4286 25.9909 18.4286H25.3103C25.3103 19.4181 24.9683 20.261 
+               24.2844 20.9571C23.6005 21.6533 22.7691 22.001 21.7902 22C20.8112 21.999 19.9794 
+               21.6514 19.2945 20.9571C18.6087 20.2638 18.2658 19.421 18.2658 18.4286H11.544C11.544 
+               19.4181 11.202 20.261 10.5181 20.9571C9.8342 21.6533 9.00279 22.001 8.02387 22C7.04496 
+               21.999 6.21167 21.6514 5.52681 20.9571ZM19.8399 13.7857H26.3954L26.6448 12.5143L23.6305 
+               8.42857H21.0687L19.8399 13.7857ZM18.0319 15.5686L18.2151 14.74C18.3372 14.1876 18.4922 13.5114 
+               18.6801 12.7114C18.7863 12.2733 18.8793 11.8686 18.9591 11.4971C19.038 11.1257 19.101 10.8181 
+               19.1479 10.5743L19.3311 9.74571C19.4533 9.19333 19.6083 8.51714 19.7962 7.71714C19.9841 
+               6.91714 20.1391 6.24095 20.2612 5.68857L20.4444 4.86L20.7854 3.42857L17.6909 17L18.0319 15.5686ZM0.677816 
+               13.4257C0.485228 13.4257 0.324112 13.3571 0.194467 13.22C0.0648223 13.0829 0 12.9133 0 12.7114C0 12.5095 0.0676407 12.3395 0.202922 12.2014C0.338203 12.0633 0.505426 11.9952 0.70459 11.9971H5.60854C5.80864 11.9971 5.97633 12.0657 6.11162 12.2029C6.2469 12.34 6.31454 12.51 6.31454 12.7129C6.31454 12.9157 6.2469 13.0852 6.11162 13.2214C5.97633 13.3576 5.80911 13.4257 5.60995 13.4257H0.677816ZM3.49618 8.43143C3.29607 8.43143 3.12838 8.36286 2.9931 8.22571C2.85782 8.08857 2.79065 7.91857 2.79159 7.71571C2.79253 7.51286 2.8597 7.34333 2.9931 7.20714C3.1265 7.07095 3.29419 7.00286 3.49618 7.00286H9.83749C10.0367 7.00286 10.2039 7.07143 10.3392 7.20857C10.4744 7.34571 10.5421 7.51571 10.5421 7.71857C10.5421 7.92143 10.4744 8.09095 10.3392 8.22714C10.2039 8.36333 10.0367 8.43143 9.83749 8.43143H3.49618ZM8.02106 20.5714C8.6007 20.5714 9.09814 20.3614 9.51338 19.9414C9.92768 19.5205 10.1348 19.0162 10.1348 18.4286C10.1348 17.841 9.92768 17.3367 9.51338 16.9157C9.09908 16.4948 8.60164 16.2848 8.02106 16.2857C7.44047 16.2867 6.94303 16.4967 6.52873 16.9157C6.11443 17.3367 5.90728 17.841 5.90728 18.4286C5.90728 19.0162 6.11443 19.5205 6.52873 19.9414C6.94397 20.3614 7.44141 20.5714 8.02106 20.5714ZM21.7888 20.5714C22.3684 20.5714 22.8654 20.3614 23.2797 19.9414C23.694 19.5205 23.9011 19.0162 23.9011 18.4286C23.9011 17.841 23.694 17.3367 23.2797 16.9157C22.8654 16.4948 22.3679 16.2848 21.7873 16.2857C21.2068 16.2867 20.7098 16.4967 20.2964 16.9157C19.8812 17.3367 19.6736 17.841 
+              19.6736 18.4286C19.6736 19.0162 19.8807 19.5205 20.295 19.9414C20.7103 20.3614 21.2082 20.5714 21.7888 20.5714Z"
+              fill="currentColor" />
+          </svg>
+        </div>
+        <div class="item-text">
+          <h3>Flexible Delivery</h3>
+          <p>
+            Choose collection or home delivery. Track your order every step of
+            the way.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta-section">
+  <div class="cta-container">
+    <h2>Ready to Get Started?</h2>
+    <p>Join hundreds of families enjoying fresh, local food every week</p>
+    <a href="{{url_for('products')}}" class="btn btn-white">Browse Products</a>
+  </div>
+</section>
+
+
+
+
+{% endblock %}

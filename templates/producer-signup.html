@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}Producer Sign up | Greenfield Local Hub{% endblock %}
+
+{% block content %}
+<main id="main-content" class="producer-signup-page">
+  <div class="auth-container">
+    <header class="auth-header">
+      <div class="auth-icon">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"
+          fill="none">
+          <path
+            d="M21.3327 28V25.3333C21.3327 23.9188 20.7708 22.5623 19.7706 21.5621C18.7704 20.5619 17.4138 20 15.9993 20H7.99935C6.58486 20 5.22831 20.5619 4.22811 21.5621C3.22792 22.5623 2.66602 23.9188 2.66602 25.3333V28"
+            stroke="currentColor" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M11.9993 14.6667C14.9449 14.6667 17.3327 12.2789 17.3327 9.33333C17.3327 6.38781 14.9449 4 11.9993 4C9.05383 4 6.66602 6.38781 6.66602 9.33333C6.66602 12.2789 9.05383 14.6667 11.9993 14.6667Z"
+            stroke="currentColor" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M25.334 10.6667V18.6667" stroke="currentColor" stroke-width="2.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M29.334 14.6667H21.334" stroke="currentColor" stroke-width="2.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <h1 class="auth-title">Become a Producer</h1>
+      <p class="auth-subtitle">Join our community of local producers</p>
+    </header>
+
+    <div class="auth-card auth-card--wide">
+
+
+      <form class="auth-form" method="POST" action="{{ url_for('producer_signup') }}">
+
+<!-- Producer signup collects business details up front because the account needs more structure than the customer flow. -->
+
+        <fieldset class="auth-section">
+          <legend class="auth-section-title">Business Information</legend>
+
+
+          <div class="auth-grid auth-grid--two">
+
+            <div class="form-group">
+              <label for="business_registration_number" class="form-label">Business Registration Number *</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M22 12C22 17.523 17.523 22 12 22C6.477 22 2 17.523 2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12Z" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M10 16V9C10 8.73478 10.1054 8.48043 10.2929 8.29289C10.4804 8.10536 10.7348 8 11 8H12.75C13.3467 8 13.919 8.23705 14.341 8.65901C14.7629 9.08097 15 9.65326 15 10.25C15 10.8467 14.7629 11.419 14.341 11.841C13.919 12.2629 13.3467 12.5 12.75 12.5H10M13 12.5L14.5 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                <input type="text" name="business_registration_number" class="form-input" value="" placeholder="Your Business Registration #" required/>
+
+              </div>
+
+            </div>
+            <div class="form-group">
+            <label for="producer-business-name" class="form-label">Business Name *</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                fill="none">
+                <path
+                  d="M15.0007 1.66667H5.00065C4.08018 1.66667 3.33398 2.41286 3.33398 3.33333V16.6667C3.33398 17.5871 4.08018 18.3333 5.00065 18.3333H15.0007C15.9211 18.3333 16.6673 17.5871 16.6673 16.6667V3.33333C16.6673 2.41286 15.9211 1.66667 15.0007 1.66667Z"
+                  stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M7.5 18.3333V15H12.5V18.3333" stroke="currentColor" stroke-width="1.66667"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M6.66602 5H6.67435" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M13.334 5H13.3423" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M10 5H10.0083" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              <input type="text" id="producer-business-name" name="business_name"
+                placeholder="Your Farm or Business Name" class="form-input" required />
+            </div>
+          </div>
+          </div>
+
+            <div class="form-group">
+              <label for="producer-email" class="form-label">Email Address *</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                  fill="none">
+                  <path
+                    d="M16.666 3.33333H3.33268C2.41221 3.33333 1.66602 4.07952 1.66602 4.99999V15C1.66602 15.9205 2.41221 16.6667 3.33268 16.6667H16.666C17.5865 16.6667 18.3327 15.9205 18.3327 15V4.99999C18.3327 4.07952 17.5865 3.33333 16.666 3.33333Z"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M18.3327 5.83333L10.8577 10.5833C10.6004 10.7445 10.3029 10.83 9.99935 10.83C9.69575 10.83 9.39829 10.7445 9.14102 10.5833L1.66602 5.83333"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <input type="email" id="producer-email" name="business_email" placeholder="your.email@example.com"
+                  class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="producer-phone" class="form-label">Phone Number *</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                  fill="none">
+                  <path
+                    d="M17.5007 14.1917V16.6917C17.5017 16.9239 17.4541 17.1536 17.3611 17.3664C17.2681 17.5791 17.1318 17.7702 16.9607 17.9276C16.7896 18.0851 16.5878 18.2054 16.3679 18.281C16.1481 18.3566 15.9149 18.3859 15.6832 18.3667C13.1128 18.0875 10.6437 17.2091 8.47524 15.8004C6.4574 14.5185 4.74633 12.8074 3.4644 10.7896C2.0508 8.61126 1.17219 6.13012 0.898165 3.54754C0.879068 3.31654 0.908172 3.08401 0.983615 2.86486C1.05906 2.64571 1.17921 2.4445 1.3364 2.27384C1.49359 2.10318 1.68437 1.96701 1.89679 1.87404C2.10922 1.78107 2.33852 1.73331 2.57067 1.73337H5.07067C5.47676 1.72938 5.87045 1.87317 6.17887 2.13806C6.48729 2.40296 6.68937 2.77083 6.74734 3.1727C6.85543 3.99202 7.05593 4.79633 7.34567 5.57004C7.45809 5.86908 7.48326 6.19381 7.41818 6.50656C7.3531 6.81932 7.20043 7.10716 6.97817 7.33671L5.92067 8.39421C7.10518 10.4763 8.82437 12.1955 10.9065 13.38L11.964 12.3225C12.1935 12.1003 12.4814 11.9476 12.7941 11.8825C13.1069 11.8174 13.4316 11.8426 13.7307 11.955C14.5044 12.2448 15.3087 12.4453 16.128 12.5534C16.5343 12.6114 16.9058 12.8171 17.1715 13.1312C17.4373 13.4454 17.5794 13.8458 17.5707 14.2575"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <input type="tel" id="producer-phone" name="business_phone_number" placeholder="+44 20 7123 4567"
+                  class="form-input" required />
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="producer-business-address" class="form-label">Business Address *</label>
+            
+            <div class="input-wrapper input-wrapper--textarea">
+              <svg class="input-icon input-icon--top" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M16.6673 8.33333C16.6673 12.4942 12.0515 16.8275 10.5015 18.1658C10.3571 18.2744 10.1813 18.3331 10.0007 18.3331C9.81999 18.3331 9.64421 18.2744 9.49982 18.1658C7.94982 16.8275 3.33398 12.4942 3.33398 8.33333C3.33398 6.56522 4.03636 4.86953 5.28661 3.61929C6.53685 2.36904 8.23254 1.66666 10.0007 1.66666C11.7688 1.66666 13.4645 2.36904 14.7147 3.61929C15.9649 4.86953 16.6673 6.56522 16.6673 8.33333Z"
+                  stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M10 10.8333C11.3807 10.8333 12.5 9.71405 12.5 8.33334C12.5 6.95262 11.3807 5.83334 10 5.83334C8.61929 5.83334 7.5 6.95262 7.5 8.33334C7.5 9.71405 8.61929 10.8333 10 10.8333Z"
+                  stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <textarea id="producer-business-address" name="business_address"
+                placeholder="e.g. 123 GLH, London, UK 12345" class="form-input form-textarea"
+                required></textarea>
+                
+            </div>
+            
+          </div>
+
+         
+        </fieldset>
+
+        <fieldset class="auth-section">
+          <legend class="auth-section-title">Security</legend>
+
+          <div class="auth-grid auth-grid--two">
+            <div class="form-group">
+              <label for="producer-password" class="form-label">Password *</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                  fill="none">
+                  <path
+                    d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M5.83398 9.16666V5.83332C5.83398 4.72825 6.27297 3.66845 7.05437 2.88704C7.83577 2.10564 8.89558 1.66666 10.0007 1.66666C11.1057 1.66666 12.1655 2.10564 12.9469 2.88704C13.7283 3.66845 14.1673 4.72825 14.1673 5.83332V9.16666"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <input type="password" id="producer-password" name="password" placeholder="Min. 8 characters"
+                  class="form-input" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="producer-confirm-password" class="form-label">Confirm Password *</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                  fill="none">
+                  <path
+                    d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M5.83398 9.16666V5.83332C5.83398 4.72825 6.27297 3.66845 7.05437 2.88704C7.83577 2.10564 8.89558 1.66666 10.0007 1.66666C11.1057 1.66666 12.1655 2.10564 12.9469 2.88704C13.7283 3.66845 14.1673 4.72825 14.1673 5.83332V9.16666"
+                    stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <input type="password" id="producer-confirm-password" name="confirm_password"
+                  placeholder="Re-enter password" class="form-input" required />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="auth-form-footer">
+          <label class="checkbox">
+            <input type="checkbox" id="producer-terms" name="checkbox" required />
+            <span class="checkbox-label">
+              I accept the <a href="{{url_for('terms_condition')}}" class="text-link">Terms and Conditions</a>
+              and <a href="{{url_for('privacy_policy')}}" class="text-link">Privacy Policy</a>, and I understand
+              the producer responsibilities and guidelines*
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn-primary auth-submit auth-submit--large">
+            <svg class="auth-submit-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+              fill="none">
+              <path
+                d="M13.3327 17.5V15.8333C13.3327 14.9493 12.9815 14.1014 12.3564 13.4763C11.7313 12.8512 10.8834 12.5 9.99935 12.5H4.99935C4.11529 12.5 3.26745 12.8512 2.64233 13.4763C2.01721 14.1014 1.66602 14.9493 1.66602 15.8333V17.5"
+                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M7.49935 9.16667C9.3403 9.16667 10.8327 7.67428 10.8327 5.83333C10.8327 3.99238 9.3403 2.5 7.49935 2.5C5.6584 2.5 4.16602 3.99238 4.16602 5.83333C4.16602 7.67428 5.6584 9.16667 7.49935 9.16667Z"
+                stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M15.834 6.66669V11.6667" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M18.334 9.16669H13.334" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span>Create Account</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <nav class="auth-footer" aria-label="Account options">
+      <p>
+        Already have an account?
+        <a href="{{ url_for('producer_signin') }}" class="text-link">Sign in here</a>
+      </p>
+      <p>
+        Are you a customer?
+        <a href="{{ url_for('customer_signup') }}" class="text-link">Customer sign up</a>
+      </p>
+    </nav>
+  </div>
+</main>
+{% endblock %}

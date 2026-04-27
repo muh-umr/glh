@@ -1,0 +1,157 @@
+{% extends "base.html" %} {% block title %} Customer Sign In | Greenfield Local Hub{% endblock %}
+
+{% block content %}
+<main id="main-content" class="customer-auth-page">
+  <div class="auth-container">
+
+    <header class="auth-header">
+      <div class="auth-icon">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <path
+            d="M20 4H25.3333C26.0406 4 26.7189 4.28095 27.219 4.78105C27.719 5.28115 28 5.95942 28 6.66667V25.3333C28 26.0406 27.719 26.7189 27.219 27.219C26.7189 27.719 26.0406 28 25.3333 28H20"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M13.334 22.6666L20.0007 16L13.334 9.33331"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M20 16H4"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <h1 class="auth-title">Welcome Back</h1>
+      <p class="auth-subtitle">
+        Sign in to your Greenfield Local Hub account
+      </p>
+    </header>
+    
+<!-- Keep the sign-in form focused and simple so returning customers can get back in quickly. -->
+    <div class="auth-card">
+      <form class="auth-form" method="POST" action="{{ url_for('customer_signin') }}">
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <svg
+              class="input-icon"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M16.666 3.33333H3.33268C2.41221 3.33333 1.66602 4.07952 1.66602 4.99999V15C1.66602 15.9205 2.41221 16.6667 3.33268 16.6667H16.666C17.5865 16.6667 18.3327 15.9205 18.3327 15V4.99999C18.3327 4.07952 17.5865 3.33333 16.666 3.33333Z"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M18.3327 5.83333L10.8577 10.5833C10.6004 10.7445 10.3029 10.83 9.99935 10.83C9.69575 10.83 9.39829 10.7445 9.14102 10.5833L1.66602 5.83333"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="your.email@example.com"
+              class="form-input form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-wrapper">
+             <svg
+              class="input-icon"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5.83398 9.16666V5.83332C5.83398 4.72825 6.27297 3.66845 7.05437 2.88704C7.83577 2.10564 8.89558 1.66666 10.0007 1.66666C11.1057 1.66666 12.1655 2.10564 12.9469 2.88704C13.7283 3.66845 14.1673 4.72825 14.1673 5.83332V9.16666"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              class="form-input form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <label class="checkbox">
+            <input type="checkbox" name="remember_me" />
+            <span class="checkbox-label">Remember me</span>
+          </label>
+
+          <a href="{{ url_for('forgot_password') }}" class="forgot-password text-link">
+            Forgot password?
+          </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-submit">
+          <span>Sign In</span>
+        </button>
+
+      </form>
+    </div>
+
+    <div class="auth-footer">
+      <p>
+        Don't have an account?
+        <a href="{{ url_for('customer_signup') }}" class="text-link">Sign up here</a>
+      </p>
+      <p>
+        Are you a producer?
+        <a href="{{ url_for('producer_signin') }}" class="text-link">Sign in as producer</a>
+      </p>
+    </div>
+
+  </div>
+</main>
+{% endblock %}

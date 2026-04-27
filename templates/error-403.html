@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block title %} 403 | Greenfield Local Hub {% endblock %}
+{% block content %}
+
+<!-- Clear permission message for routes the current user should not access. -->
+<div class="error-container">
+  <h1>Wrong Account Type</h1>
+  <p>
+    You are currently logged in as a <strong>{{ user_type }}</strong>.
+  </p>
+
+  <p>
+    To access this page, please sign in with a {{ required_type }} account.
+  </p>
+
+  <div >
+    <a href="{{ switch_url }}" class="btn btn-primary">
+      Go to {{ required_type|capitalize }} Sign In
+    </a>
+  </div>
+</div>
+ {% endblock %}

@@ -1,0 +1,181 @@
+<section class="loyalty-tab-view">
+  <div class="loyalty-tab-stack">
+
+<!-- This headline card makes the current points balance obvious before the reward options appear. -->
+
+    <section class="loyalty-balance-card">
+      <div class="loyalty-balance-content">
+        <p class="loyalty-balance-label">Your Points Balance</p>
+        <h2 class="loyalty-balance-value">{{ points }}</h2>
+        <p class="loyalty-balance-note">
+          You're earning points! Keep shopping to unlock exclusive rewards.
+        </p>
+      </div>
+      <div class="loyalty-balance-icon" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none">
+  <g opacity="0.2">
+    <path d="M51.5901 42.9667L56.6401 71.3867C56.6967 71.7213 56.6498 72.0653 56.5056 72.3725C56.3614 72.6798 56.1268 72.9357 55.8333 73.106C55.5397 73.2763 55.2011 73.353 54.8628 73.3257C54.5245 73.2984 54.2026 73.1685 53.9401 72.9533L42.0068 63.9967C41.4307 63.5663 40.7309 63.3337 40.0118 63.3337C39.2927 63.3337 38.5929 63.5663 38.0168 63.9967L26.0635 72.95C25.8012 73.1648 25.4797 73.2945 25.1418 73.3218C24.8039 73.3491 24.4657 73.2728 24.1724 73.1029C23.879 72.933 23.6444 72.6778 23.4999 72.3711C23.3554 72.0645 23.3078 71.7211 23.3635 71.3867L28.4101 42.9667" stroke="white" stroke-width="6.66667" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M40 46.6667C51.0457 46.6667 60 37.7124 60 26.6667C60 15.621 51.0457 6.66666 40 6.66666C28.9543 6.66666 20 15.621 20 26.6667C20 37.7124 28.9543 46.6667 40 46.6667Z" stroke="white" stroke-width="6.66667" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
+      </div>
+    </section>
+
+    <section class="loyalty-panel">
+      <h2>How It Works</h2>
+
+      <div class="loyalty-steps">
+        <div class="loyalty-step">
+          <div class="loyalty-step-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M20 12V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M22 7H2V12H22V7Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 22V7"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 7H7.5C6.837 7 6.20107 6.73661 5.73223 6.26777C5.26339 5.79893 5 5.16304 5 4.5C5 3.83696 5.26339 3.20107 5.73223 2.73223C6.20107 2.26339 6.837 2 7.5 2C11 2 12 7 12 7Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 7H16.5C17.163 7 17.7989 6.73661 18.2678 6.26777C18.7366 5.79893 19 5.16304 19 4.5C19 3.83696 18.7366 3.20107 18.2678 2.73223C17.7989 2.26339 17.163 2 16.5 2C13 2 12 7 12 7Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3>Earn Points</h3>
+            <p>Earn 1 point for every £1 spent on products</p>
+          </div>
+        </div>
+
+        <div class="loyalty-step">
+          <div class="loyalty-step-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12 3L14.472 8.008L20 8.818L16 12.718L16.944 18.232L12 15.632L7.056 18.232L8 12.718L4 8.818L9.528 8.008L12 3Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3>Unlock Rewards</h3>
+            <p>Redeem points for discounts and special offers</p>
+          </div>
+        </div>
+
+        <div class="loyalty-step">
+          <div class="loyalty-step-icon" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M21 8L12 13L3 8"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M21 16L12 21L3 16"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M21 12L12 17L3 12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M12 3L21 8L12 13L3 8L12 3Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div>
+            <h3>Exclusive Access</h3>
+            <p>Get early access to seasonal products and special events</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="loyalty-panel">
+      <h2>Available Rewards</h2>
+      
+<!-- Reward cards separate what is already available from what still needs more points. -->
+      <div class="loyalty-rewards-list">
+        {% for reward in rewards %}
+        <div class="loyalty-reward-card">
+          <div class="loyalty-reward-text">
+            <h3>{{ reward.title }}</h3>
+            <p>{{ reward.subtitle }}</p>
+          </div>
+
+          <div class="loyalty-reward-side">
+            <div class="loyalty-reward-points">
+              {{ reward.points_required }} points
+            </div>
+
+            {% if reward.is_available %}
+            <button type="button" class="loyalty-redeem-btn btn btn-primary" title="To redeem: go to checkout">Redeemable</button>
+            {% else %}
+            <span class="loyalty-need-btn btn btn-secondary">
+              Need {{ reward.points_required - points }} more
+            </span>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</section>

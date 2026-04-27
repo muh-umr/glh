@@ -1,0 +1,103 @@
+<section class="customer-account-panel customer-orders-panel">
+  <div class="section-header orders-section-header">
+    <h2>Order History</h2>
+    <div class="order-count">{{ orders|length }} orders</div>
+  </div>
+
+ <div class="export-orders">
+  <a href="{{ url_for('export_customer_orders') }}" class="btn btn-secondary">
+    Export Orders
+  </a>
+</div>
+
+<!-- Customer orders are grouped into cards so each purchase can be scanned without reading a dense table. -->
+  <div class="orders-list">
+    {% if orders %}
+      {% for order in orders %}
+      <article class="order-card">
+        <div class="card-content">
+          <div class="card-header-row">
+            <div class="order-info">
+              <div class="order-id-badge">
+                <h3>Order #{{ order['order_id'] }}</h3>
+
+                {% if order['status'] == 'Completed' %}
+                  <span class="badge badge-green">{{ order['status'] }}</span>
+                {% elif order['status'] == 'Ready for Collection' %}
+                  <span class="badge badge-green">{{ order['status'] }}</span>
+                {% elif order['status'] == 'Out for Delivery' %}
+                  <span class="badge badge-green">{{ order['status'] }}</span>
+                {% elif order['status'] == 'Confirmed' %}
+                  <span class="badge badge-light-green">{{ order['status'] }}</span>
+                {% else %}
+                  <span class="badge badge-light-green">{{ order['status'] }}</span>
+                {% endif %}
+              </div>
+
+              <div class="order-date">
+                <p>Placed on {{ order['order_date'] }}</p>
+                {% if order['scheduled_time'] %}
+                <p>{{ order['scheduled_time'] }}</p>
+                {% endif %}
+                
+              </div>
+            </div>
+
+            <div class="order-total-col">
+              <div class="price-badge">
+                <span class="total-price">£{{ '%.2f'|format(order['total_price']) }}</span>
+                <span class="fulfillment-badge">{{ order['collection_or_delivery'] }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="items-list">
+            {% for item in order['items'] %}
+            <div class="item-row">
+              <span class="item-name">{{ item['name'] }} × {{ item['quantity'] }}</span>
+              <span class="item-price">£{{ '%.2f'|format(item['quantity'] * item['price_at_purchase']) }}</span>
+            </div>
+            {% endfor %}
+          </div>
+
+          {% if order['loyalty_discount'] > 0 %}
+          <div class="items-list loyalty-discount-list">
+            <div class="item-row">
+              <span class="item-name">Loyalty reward applied</span>
+              <span class="item-price">-£{{ '%.2f'|format(order['loyalty_discount']) }}</span>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if order['collection_or_delivery'] == 'Delivery' and current_user.address %}
+          <div class="address-row">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 6.66667C12 9.44 8.92 12.3289 7.88667 13.2211C7.79044 13.2936 7.67328 13.3328 7.55283 13.3328C7.43239 13.3328 7.31522 13.2936 7.219 13.2211C6.18567 12.3289 3.10567 9.44 3.10567 6.66667C3.10567 5.48841 3.57392 4.35858 4.40707 3.52542C5.24022 2.69226 6.37005 2.22401 7.54832 2.22401C8.72658 2.22401 9.85642 2.69226 10.6896 3.52542C11.5227 4.35858 11.991 5.48841 11.991 6.66667Z" fill="currentColor"/>
+              <path d="M7.54834 8.22221C8.40715 8.22221 9.10389 7.52547 9.10389 6.66665C9.10389 5.80784 8.40715 5.1111 7.54834 5.1111C6.68952 5.1111 5.99278 5.80784 5.99278 6.66665C5.99278 7.52547 6.68952 8.22221 7.54834 8.22221Z" fill="#F5F5F0"/>
+            </svg>
+            <span>Delivery to: {{ current_user.address }}</span>
+          </div>
+          {% endif %}
+
+          <!-- <div class="card-actions">
+            <button class="btn-secondary btn" type="button">View Details</button>
+            <button class="btn-secondary btn" type="button">Reorder</button>
+          </div> -->
+        </div>
+      </article>
+      {% endfor %}
+    {% else %}
+      <article class="order-card">
+        <div class="card-content">
+          <div class="section-header">
+            <h3>No orders yet</h3>
+          </div>
+          <p>You have not placed any orders yet.</p>
+          <div class="card-actions">
+            <a href="{{ url_for('products') }}" class="btn btn-secondary">Browse Products</a>
+          </div>
+        </div>
+      </article>
+    {% endif %}
+  </div>
+</section>

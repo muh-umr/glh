@@ -1,0 +1,361 @@
+{% extends "base.html" %}
+{% block title %}Create Account | Greenfield Local Hub{% endblock %}
+
+{% block content %}
+<main id="main-content" class="customer-signup-page">
+  <div class="auth-container">
+    <header class="auth-header">
+      <div class="auth-icon">
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+        >
+          <path
+            d="M21.3327 28V25.3333C21.3327 23.9188 20.7708 22.5623 19.7706 21.5621C18.7704 20.5619 17.4138 20 15.9993 20H7.99935C6.58486 20 5.22831 20.5619 4.22811 21.5621C3.22792 22.5623 2.66602 23.9188 2.66602 25.3333V28"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M11.9993 14.6667C14.9449 14.6667 17.3327 12.2789 17.3327 9.33333C17.3327 6.38781 14.9449 4 11.9993 4C9.05383 4 6.66602 6.38781 6.66602 9.33333C6.66602 12.2789 9.05383 14.6667 11.9993 14.6667Z"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M25.334 10.6667V18.6667"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M29.334 14.6667H21.334"
+            stroke="currentColor"
+            stroke-width="2.66667"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <h1 class="auth-title">Create Your Account</h1>
+      <p class="auth-subtitle">
+        Join Greenfield Local Hub and support local producers
+      </p>
+    </header>
+    
+<!-- Wider signup card gives the registration flow more room without making the form feel cramped. -->
+    <div class="auth-card auth-card--wide">
+      
+
+      <form
+        class="auth-form"
+        method="POST"
+        action="{{ url_for('customer_signup') }}"
+      >
+        <fieldset class="auth-section">
+          <legend class="auth-section-title">Personal Information</legend>
+
+          <div class="auth-grid auth-grid--two">
+            <div class="form-group">
+              <label for="first-name" class="form-label">First Name *</label>
+              <div class="input-wrapper">
+                <svg
+                  class="input-icon"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M10.0003 10C11.8413 10 13.3337 8.50761 13.3337 6.66667C13.3337 4.82572 11.8413 3.33334 10.0003 3.33334C8.15938 3.33334 6.66699 4.82572 6.66699 6.66667C6.66699 8.50761 8.15938 10 10.0003 10Z"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4.16699 16.6667C4.16699 15.1196 4.78157 13.6359 5.87553 12.5419C6.9695 11.448 8.45323 10.8334 10.0003 10.8334C11.5474 10.8334 13.0312 11.448 14.1251 12.5419C15.2191 13.6359 15.8337 15.1196 15.8337 16.6667"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  id="first-name"
+                  name="first_name"
+                  placeholder="John"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="last-name" class="form-label">Last Name *</label>
+              <div class="input-wrapper">
+                <svg
+                  class="input-icon"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M10.0003 10C11.8413 10 13.3337 8.50761 13.3337 6.66667C13.3337 4.82572 11.8413 3.33334 10.0003 3.33334C8.15938 3.33334 6.66699 4.82572 6.66699 6.66667C6.66699 8.50761 8.15938 10 10.0003 10Z"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4.16699 16.6667C4.16699 15.1196 4.78157 13.6359 5.87553 12.5419C6.9695 11.448 8.45323 10.8334 10.0003 10.8334C11.5474 10.8334 13.0312 11.448 14.1251 12.5419C15.2191 13.6359 15.8337 15.1196 15.8337 16.6667"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <input
+                  type="text"
+                  id="last-name"
+                  name="last_name"
+                  placeholder="Smith"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address *</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M16.666 3.33333H3.33268C2.41221 3.33333 1.66602 4.07952 1.66602 4.99999V15C1.66602 15.9205 2.41221 16.6667 3.33268 16.6667H16.666C17.5865 16.6667 18.3327 15.9205 18.3327 15V4.99999C18.3327 4.07952 17.5865 3.33333 16.666 3.33333Z"
+                  stroke="currentColor"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M18.3327 5.83333L10.8577 10.5833C10.6004 10.7445 10.3029 10.83 9.99935 10.83C9.69575 10.83 9.39829 10.7445 9.14102 10.5833L1.66602 5.83333"
+                  stroke="currentColor"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="your.email@example.com"
+                class="form-input"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone" class="form-label">Phone Number *</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M17.5007 14.1917V16.6917C17.5017 16.9239 17.4541 17.1536 17.3611 17.3664C17.2681 17.5791 17.1318 17.7702 16.9607 17.9276C16.7896 18.0851 16.5878 18.2054 16.3679 18.281C16.1481 18.3566 15.9149 18.3859 15.6832 18.3667C13.1128 18.0875 10.6437 17.2091 8.47524 15.8004C6.4574 14.5185 4.74633 12.8074 3.4644 10.7896C2.0508 8.61126 1.17219 6.13012 0.898165 3.54754C0.879068 3.31654 0.908172 3.08401 0.983615 2.86486C1.05906 2.64571 1.17921 2.4445 1.3364 2.27384C1.49359 2.10318 1.68437 1.96701 1.89679 1.87404C2.10922 1.78107 2.33852 1.73331 2.57067 1.73337H5.07067C5.47676 1.72938 5.87045 1.87317 6.17887 2.13806C6.48729 2.40296 6.68937 2.77083 6.74734 3.1727C6.85543 3.99202 7.05593 4.79633 7.34567 5.57004C7.45809 5.86908 7.48326 6.19381 7.41818 6.50656C7.3531 6.81932 7.20043 7.10716 6.97817 7.33671L5.92067 8.39421C7.10518 10.4763 8.82437 12.1955 10.9065 13.38L11.964 12.3225C12.1935 12.1003 12.4814 11.9476 12.7941 11.8825C13.1069 11.8174 13.4316 11.8426 13.7307 11.955C14.5044 12.2448 15.3087 12.4453 16.128 12.5534C16.5343 12.6114 16.9058 12.8171 17.1715 13.1312C17.4373 13.4454 17.5794 13.8458 17.5707 14.2575"
+                  stroke="currentColor"
+                  stroke-width="1.66667"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+44 20 7123 4567"
+                class="form-input"
+                required
+              />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="auth-section">
+          <legend class="auth-section-title">Security</legend>
+
+          <div class="auth-grid auth-grid--two">
+            <div class="form-group">
+              <label for="password" class="form-label">Password *</label>
+              <div class="input-wrapper">
+                <svg
+                  class="input-icon"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5.83398 9.16666V5.83332C5.83398 4.72825 6.27297 3.66845 7.05437 2.88704C7.83577 2.10564 8.89558 1.66666 10.0007 1.66666C11.1057 1.66666 12.1655 2.10564 12.9469 2.88704C13.7283 3.66845 14.1673 4.72825 14.1673 5.83332V9.16666"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Min. 8 characters"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirm-password" class="form-label">Confirm Password *</label>
+              <div class="input-wrapper">
+                <svg
+                  class="input-icon"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8333 9.16666H4.16667C3.24619 9.16666 2.5 9.91285 2.5 10.8333V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V10.8333C17.5 9.91285 16.7538 9.16666 15.8333 9.16666Z"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5.83398 9.16666V5.83332C5.83398 4.72825 6.27297 3.66845 7.05437 2.88704C7.83577 2.10564 8.89558 1.66666 10.0007 1.66666C11.1057 1.66666 12.1655 2.10564 12.9469 2.88704C13.7283 3.66845 14.1673 4.72825 14.1673 5.83332V9.16666"
+                    stroke="currentColor"
+                    stroke-width="1.66667"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <input
+                  type="password"
+                  id="confirm-password"
+                  name="confirm_password"
+                  placeholder="Re-enter password"
+                  class="form-input"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="auth-form-footer">
+          <label class="checkbox">
+            <input type="checkbox" id="terms" name="checkbox" required />
+            <span class="checkbox-label">
+              I accept the <a href="{{url_for('terms_condition')}}" class="text-link">Terms and Conditions</a>
+              and <a href="{{url_for('privacy_policy')}}" class="text-link">Privacy Policy</a>*
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn-primary auth-submit auth-submit--large">
+            <svg
+              class="auth-submit-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M13.3327 17.5V15.8333C13.3327 14.9493 12.9815 14.1014 12.3564 13.4763C11.7313 12.8512 10.8834 12.5 9.99935 12.5H4.99935C4.11529 12.5 3.26745 12.8512 2.64233 13.4763C2.01721 14.1014 1.66602 14.9493 1.66602 15.8333V17.5"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.49935 9.16667C9.3403 9.16667 10.8327 7.67428 10.8327 5.83333C10.8327 3.99238 9.3403 2.5 7.49935 2.5C5.6584 2.5 4.16602 3.99238 4.16602 5.83333C4.16602 7.67428 5.6584 9.16667 7.49935 9.16667Z"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.834 6.66669V11.6667"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M18.334 9.16669H13.334"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Create Account</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <nav class="auth-footer" aria-label="Account options">
+      <p>
+        Already have an account?
+        <a href="{{ url_for('customer_signin') }}" class="text-link">Sign in here</a>
+      </p>
+      <p>
+        Are you a producer?
+        <a href="{{ url_for('producer_signup') }}" class="text-link">Register as producer</a>
+      </p>
+    </nav>
+  </div>
+</main>
+{% endblock %}

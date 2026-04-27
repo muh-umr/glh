@@ -1,0 +1,236 @@
+{% extends "base.html" %} {% block title %}Producers | Greenfield Local Hub{%
+endblock %} {% block content %}
+<section class="producers-page">
+  <div class="container producers-container">
+    <div class="producers-header">
+      <h1>Our Producers</h1>
+      <p>
+        Meet the passionate farmers and food makers behind your products. Every
+        producer is carefully selected for their commitment to quality,
+        sustainability, and traditional methods.
+      </p>
+    </div>
+    <div class="products-producers-control">
+      <div class="search-bar">
+        <div class="search-bar_field">
+          <span class="search-bar_icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z"
+                stroke="#2E2E2E" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M17.5001 17.5L13.9167 13.9167" stroke="#2E2E2E" stroke-width="1.66667" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+          <input type="text" id="producerSearch" class="search-bar_input form-control"
+            placeholder="Search producers by name" aria-label="Search producers" />
+        </div>
+      </div>
+
+      <div class="products-filters">
+        <span class="products-filters_label">Category:</span>
+        <div class="products-filters_list">
+          <button type="button" class="btn-primary btn products-filter-btn is-active" data-category="all">
+            All Producers
+          </button>
+          {% for category in categories %}
+          <button type="button" class="products-filter-btn btn btn-secondary" data-category="{{ category|lower }}">
+            {{ category }}
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <p class="products-results" id="producersResults">
+      Showing {{ producers|length }} producers
+    </p>
+
+    <!-- Producer directory cards make it easier for customers to browse by business instead of by item. -->
+    <div class="producers-grid" id="producersGrid">
+      {% for producer in producers %}
+
+      <!-- Each producer card highlights location, values, and methods before the user clicks through. -->
+      <article class="producer-card-public" data-name="{{ producer['business_name']|lower }}"
+        data-description="{{ producer['description']|default('', true)|lower }}"
+        data-location="{{ producer['business_address']|default('', true)|lower }}"
+        data-categories="{{ producer['categories']|default('', true)|lower }}">
+        <div class="producer-card-public_image-wrap">
+          <img src="{{ producer['image_url'] or '/static/images/default-producer.jpg' }}"
+            alt="Profile photo for {{ producer['business_name'] }}" class="producer-card-public_image" />
+        </div>
+
+        <div class="producer-card-public_body">
+          <h2>{{ producer['business_name'] }}</h2>
+
+          <div class="producer-card-public_location">
+            <span class="producer-card-public_location-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M13.3332 6.66667C13.3332 9.99534 9.6405 13.462 8.4005 14.5327C8.28499 14.6195 8.14437 14.6665 7.99984 14.6665C7.85531 14.6665 7.71469 14.6195 7.59917 14.5327C6.35917 13.462 2.6665 9.99534 2.6665 6.66667C2.6665 5.25218 3.22841 3.89563 4.2286 2.89543C5.2288 1.89524 6.58535 1.33334 7.99984 1.33334C9.41433 1.33334 10.7709 1.89524 11.7711 2.89543C12.7713 3.89563 13.3332 5.25218 13.3332 6.66667Z"
+                  fill="#717171" />
+                <path
+                  d="M8 8.66666C9.10457 8.66666 10 7.77123 10 6.66666C10 5.56209 9.10457 4.66666 8 4.66666C6.89543 4.66666 6 5.56209 6 6.66666C6 7.77123 6.89543 8.66666 8 8.66666Z"
+                  fill="#717171" />
+              </svg>
+            </span>
+            <span>{{ producer['business_address'] }}</span>
+          </div>
+
+          <p class="producer-card-public_description">
+            {{ producer['description'] or 'Local producer committed to fresh,
+            sustainable food and traditional methods.' }}
+          </p>
+          <div class="producer-public-methods">
+
+            <div class="producer-card-public_methods-title">
+              <span class="producer-card-public_methods-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path
+                    d="M10.3178 8.59333L11.3278 14.2773C11.3391 14.3443 11.3298 14.4131 11.3009 14.4745C11.2721 14.536 11.2252 14.5871 11.1665 14.6212C11.1077 14.6553 11.04 14.6706 10.9724 14.6651C10.9047 14.6597 10.8403 14.6337 10.7878 14.5907L8.40117 12.7993C8.28595 12.7133 8.14599 12.6667 8.00217 12.6667C7.85835 12.6667 7.71838 12.7133 7.60317 12.7993L5.2125 14.59C5.16005 14.633 5.09574 14.6589 5.02816 14.6644C4.96059 14.6698 4.89295 14.6546 4.83428 14.6206C4.7756 14.5866 4.72868 14.5356 4.69978 14.4742C4.67088 14.4129 4.66136 14.3442 4.6725 14.2773L5.68183 8.59333"
+                    stroke="#2E2E2E" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M8 9.33333C10.2091 9.33333 12 7.54247 12 5.33333C12 3.12419 10.2091 1.33333 8 1.33333C5.79086 1.33333 4 3.12419 4 5.33333C4 7.54247 5.79086 9.33333 8 9.33333Z"
+                    stroke="#2E2E2E" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>Methods &amp; Certifications</span>
+            </div>
+
+            
+            <div class="producer-card-public_tags product-page_producer-tags">
+              {% if producer['production_method'] %}
+              <span class="producer-card-public_tag">{{ producer['production_method'] }}</span>
+              {% endif %} {% if producer['sustainability_info'] %}
+              <span class="producer-card-public_tag">{{ producer['sustainability_info'] }}</span>
+              {% endif %}
+            </div>
+
+          </div>
+
+          <a href="{{ url_for('producer_public_profile', producer_id=producer['producer_id']) }}"
+            class="producer-card-public_button btn btn-primary">
+            View Profile &amp; Products
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    <!-- This section explains the logic behind the producer network. -->
+    <section class="producers-why">
+      <h2>Why We Choose Our Producers</h2>
+
+      <div class="producers-why_grid">
+        <article class="producers-why_item">
+          <span class="producers-why_icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15.4772 12.89L16.9922 21.416C17.0092 21.5164 16.9951 21.6196 16.9519 21.7118C16.9086 21.8039 16.8382 21.8807 16.7502 21.9318C16.6621 21.9829 16.5605 22.0059 16.459 21.9977C16.3576 21.9895 16.261 21.9506 16.1822 21.886L12.6022 19.199C12.4294 19.0699 12.2195 19.0001 12.0037 19.0001C11.788 19.0001 11.5781 19.0699 11.4052 19.199L7.81924 21.885C7.74056 21.9494 7.6441 21.9884 7.54273 21.9966C7.44137 22.0048 7.33991 21.9818 7.2519 21.9309C7.16389 21.8799 7.09352 21.8033 7.05016 21.7113C7.0068 21.6194 6.99253 21.5163 7.00924 21.416L8.52324 12.89"
+                stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M12 14C15.3137 14 18 11.3137 18 8C18 4.68629 15.3137 2 12 2C8.68629 2 6 4.68629 6 8C6 11.3137 8.68629 14 12 14Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <h3>Quality Standards</h3>
+          <p>All producers meet our strict quality and safety standards.</p>
+        </article>
+
+        <article class="producers-why_item">
+          <span class="producers-why_icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M20 10C20 14.993 14.461 20.193 12.601 21.799C12.4277 21.9293 12.2168 21.9998 12 21.9998C11.7832 21.9998 11.5723 21.9293 11.399 21.799C9.539 20.193 4 14.993 4 10C4 7.87827 4.84285 5.84344 6.34315 4.34315C7.84344 2.84285 9.87827 2 12 2C14.1217 2 16.1566 2.84285 17.6569 4.34315C19.1571 5.84344 20 7.87827 20 10Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <h3>Local First</h3>
+          <p>
+            Every producer is within 10 miles, ensuring freshness and supporting
+            our community.
+          </p>
+        </article>
+
+        <article class="producers-why_item">
+          <span class="producers-why_icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15.4772 12.89L16.9922 21.416C17.0092 21.5164 16.9951 21.6196 16.9519 21.7118C16.9086 21.8039 16.8382 21.8807 16.7502 21.9318C16.6621 21.9829 16.5605 22.0059 16.459 21.9977C16.3576 21.9895 16.261 21.9506 16.1822 21.886L12.6022 19.199C12.4294 19.0699 12.2195 19.0001 12.0037 19.0001C11.788 19.0001 11.5781 19.0699 11.4052 19.199L7.81924 21.885C7.74056 21.9494 7.6441 21.9884 7.54273 21.9966C7.44137 22.0048 7.33991 21.9818 7.2519 21.9309C7.16389 21.8799 7.09352 21.8033 7.05016 21.7113C7.0068 21.6194 6.99253 21.5163 7.00924 21.416L8.52324 12.89"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M12 14C15.3137 14 18 11.3137 18 8C18 4.68629 15.3137 2 12 2C8.68629 2 6 4.68629 6 8C6 11.3137 8.68629 14 12 14Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <h3>Sustainable Practices</h3>
+          <p>
+            We partner only with producers committed to environmental
+            sustainability.
+          </p>
+        </article>
+      </div>
+    </section>
+  </div>
+</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("producerSearch");
+    const filterButtons = document.querySelectorAll(".products-filter-btn");
+    const cards = Array.from(
+      document.querySelectorAll(".producer-card-public"),
+    );
+    const results = document.getElementById("producersResults");
+
+    let activeCategory = "all";
+
+    function updateResults() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach(function (card) {
+        const categories = card.dataset.categories || "";
+        const matchesCategory =
+          activeCategory === "all" || categories.includes(activeCategory);
+
+        const haystack = [
+          card.dataset.name || "",
+          card.dataset.description || "",
+          card.dataset.location || "",
+          card.dataset.categories || "",
+        ].join(" ");
+
+        const matchesQuery = haystack.includes(query);
+        const isVisible = matchesCategory && matchesQuery;
+
+        card.style.display = isVisible ? "" : "none";
+
+        if (isVisible) visibleCount += 1;
+      });
+
+      results.textContent =
+        "Showing " +
+        visibleCount +
+        " producer" +
+        (visibleCount === 1 ? "" : "s");
+    }
+
+    filterButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        activeCategory = button.dataset.category;
+
+        filterButtons.forEach(function (item) {
+          item.classList.toggle("is-active", item === button);
+        });
+
+        updateResults();
+      });
+    });
+
+    searchInput.addEventListener("input", updateResults);
+    updateResults();
+  });
+</script>
+{% endblock %}

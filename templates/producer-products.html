@@ -1,0 +1,293 @@
+{% extends "base.html" %} {% block title %}Manage Products | Greenfield Local
+Hub{% endblock %} {% block content %}
+<section class="producer-products-page">
+  <div class="producer-products-container">
+    <div class="producer-products-header">
+      <div>
+        <h1>Manage Products</h1>
+        <p>
+          {{ products|length }} product{{ '' if products|length == 1 else 's' }}
+        </p>
+      </div>
+      <button type="button" class="producer-products-add-btn btn btn-primary" data-open-modal="productModal">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M10 4.16669V15.8334" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
+          <path d="M4.16602 10H15.8327" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+
+        <span>Add New Product</span>
+      </button>
+    </div>
+
+    <!-- Search sits above the products table so larger product lists stay manageable. -->
+    <div class="producer-products-search">
+      <label class="producer-products-search_field">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path
+            d="M8.75 15.8334C12.662 15.8334 15.8333 12.6621 15.8333 8.75002C15.8333 4.83799 12.662 1.66669 8.75 1.66669C4.83798 1.66669 1.66667 4.83799 1.66667 8.75002C1.66667 12.6621 4.83798 15.8334 8.75 15.8334Z"
+            stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M18.3333 18.3334L14.5 14.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        <input type="search" id="producerProductsSearch" class="producer-products-search_input form-control"
+          placeholder="Search products..." aria-label="Search products" />
+      </label>
+    </div>
+
+    <section class="producer-products-table-wrap">
+      {% if products %}
+
+      <!-- Product management uses a table because producers need a denser, more operational view than customers do. -->
+      <div class="producer-products-table">
+        <div class="producer-products-table_head">
+          <span>Product</span>
+          <span>Category</span>
+          <span>Price</span>
+          <span>Stock</span>
+          <span>Status</span>
+          <span>Actions</span>
+        </div>
+
+        {% for product in products %}
+        <article class="producer-products-row" data-product-row data-product-id="{{ product.product_id }}"
+          data-product-name="{{ product.name|lower }}" data-product-title="{{ product.name }}"
+          data-product-category="{{ product.category|lower }}" data-product-category-title="{{ product.category }}"
+          data-product-description="{{ product.description }}" data-product-price="{{ '%.2f'|format(product.price) }}"
+          data-product-stock="{{ product.stock }}" data-product-image="{{ product.image_url }}">
+          <div class="producer-products-cell producer-products-cell--product">
+            <div class="producer-products-item">
+              <div class="producer-products-item_image">
+                <img src="{{ product.image_url }}" alt="{{ product.name }} product image" />
+              </div>
+              <div class="producer-products-item_text">
+                <strong>{{ product.name }}</strong>
+                <span>{{ product.unit if product.unit is defined else 'box'
+                  }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="producer-products-cell">
+            <span class="producer-products-tag">{{ product.category }}</span>
+          </div>
+          <div class="producer-products-cell producer-products-cell--price">
+            £{{ '%.2f'|format(product.price) }}
+          </div>
+          <div class="producer-products-cell">
+            <span
+              class="producer-products-stock-badge {{ 'producer-products-stock-badge--low' if product.stock <= 10 else '' }}">
+              {{ product.stock }} units
+            </span>
+          </div>
+          <div class="producer-products-cell">
+            <span
+              class="producer-products-status-badge {{ 'producer-products-status-badge--off' if not product.is_available else '' }}">
+              {{ 'In Season' if product.is_available else 'Out of Stock' }}
+            </span>
+          </div>
+
+          <!-- Edit and delete actions are grouped at the row level so each product can be managed independently. -->
+          <div class="producer-products-cell">
+            <div class="producer-products-actions">
+              <button type="button" class="producer-products-icon-btn" aria-label="Edit product" data-edit-product>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path
+                    d="M13.9584 2.49998C14.1773 2.28111 14.4372 2.10749 14.7232 1.98903C15.0091 1.87058 15.3156 1.80957 15.6251 1.80957C15.9346 1.80957 16.2411 1.87058 16.527 1.98903C16.813 2.10749 17.0729 2.28111 17.2917 2.49998C17.5106 2.71885 17.6842 2.9787 17.8027 3.26469C17.9211 3.55067 17.9821 3.85718 17.9821 4.16665C17.9821 4.47612 17.9211 4.78263 17.8027 5.06861C17.6842 5.35459 17.5106 5.61445 17.2917 5.83331L6.25006 16.875L2.50006 17.9166L3.54173 14.1666L14.5834 3.12498L13.9584 2.49998Z"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+              <button type="button" class="producer-products-icon-btn producer-products-icon-btn--danger"
+                aria-label="Delete product" data-delete-product>
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                  <path d="M2.5 5H17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <path d="M7.5 8.33331V14.1666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <path d="M12.5 8.33331V14.1666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <path
+                    d="M5.83398 5L6.25065 16.25C6.25065 16.692 6.42624 17.1159 6.7388 17.4285C7.05137 17.7411 7.47529 17.9166 7.91732 17.9166H12.084C12.526 17.9166 12.95 17.7411 13.2625 17.4285C13.5751 17.1159 13.7507 16.692 13.7507 16.25L14.1673 5"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M7.5 5V3.75C7.5 3.52899 7.5878 3.31702 7.74408 3.16074C7.90036 3.00446 8.11232 2.91666 8.33333 2.91666H11.6667C11.8877 2.91666 12.0996 3.00446 12.2559 3.16074C12.4122 3.31702 12.5 3.52899 12.5 3.75V5"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="producer-products-empty-search" id="producerProductsEmptySearch" hidden>
+        No matching products found.
+      </div>
+      {% else %}
+      <div class="producer-dashboard-empty-state">
+        You have not added any products yet.
+      </div>
+      {% endif %}
+    </section>
+
+    <section class="producer-products-tips">
+      <h2>Product Management Tips</h2>
+      <ul>
+        <li>Keep product images high quality and consistent</li>
+        <li>Update descriptions to highlight unique features and benefits</li>
+        <li>
+          Mark products as "In Season" to help customers find fresh options
+        </li>
+        <li>Regularly review and adjust pricing based on market conditions</li>
+      </ul>
+    </section>
+  </div>
+</section>
+
+<div class="modal-overlay" id="productModal">
+
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Add New Product</h2>
+      <button type="button" class="close-modal-btn" data-close-modal="productModal">
+        &times;
+      </button>
+
+    </div>
+
+    <form method="POST" action="{{ url_for('add_product') }}" enctype="multipart/form-data" class="edit-delete-form">
+      <div class="form-group">
+        <label for="product_name">Product Name *</label>
+        <input type="text" id="product_name" name="product_name" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description *</label>
+        <textarea id="description" name="description" rows="4" required class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price (£) *</label>
+        <input type="number" id="price" name="price" step="0.01" min="0" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="stock">Stock Quantity *</label>
+        <input type="number" id="stock" name="stock" min="0" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category *</label>
+        <select id="category" name="category" required class="form-control">
+          <option value="">Select category</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Drinks">Drinks</option>
+          <option value="Meat">Meat</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="product_image">Product Image *</label>
+        <input type="file" id="product_image" name="product_image" accept="image/*" required />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn btn btn-secondary" data-close-modal="productModal">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="editProductModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Edit Product</h2>
+      <button type="button" class="close-modal-btn" data-close-modal="editProductModal">
+        &times;
+      </button>
+
+    </div>
+
+    <form method="POST" action="#" enctype="multipart/form-data" class="edit-delete-form" id="editProductForm">
+      <div class="form-group">
+        <label for="edit_product_name">Product Name *</label>
+        <input type="text" id="edit_product_name" name="product_name" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="edit_description">Description *</label>
+        <textarea id="edit_description" name="description" rows="4" required class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="edit_price">Price (£) *</label>
+        <input type="number" id="edit_price" name="price" step="0.01" min="0" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="edit_stock">Stock Quantity *</label>
+        <input type="number" id="edit_stock" name="stock" min="0" required class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="edit_category">Category *</label>
+        <select id="edit_category" name="category" required class="form-control">
+          <option value="">Select category</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Bakery">Bakery</option>
+          <option value="Drinks">Drinks</option>
+          <option value="Meat">Meat</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="edit_product_image">Replace Product Image</label>
+        <input type="file" id="edit_product_image" name="product_image" accept="image/*" />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn btn btn-secondary" data-close-modal="editProductModal">
+          Cancel
+        </button>
+
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" id="deleteProductModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2>Delete Product</h2>
+      <button type="button" class="close-modal-btn" data-close-modal="deleteProductModal">
+        &times;
+      </button>
+
+    </div>
+
+    <form method="POST" action="#" class="edit-delete-form" id="deleteProductForm">
+      <p id="deleteProductMessage">Are you sure you want to delete this product?</p>
+
+      <div class="modal-actions">
+        <button type="button" class="cancel-btn btn btn-secondary" data-close-modal="deleteProductModal">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary btn-danger">Delete Product</button>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

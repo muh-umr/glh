@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Update Stock | Greenfield Local Hub{% endblock %}
+
+{% block content %}
+<section class="producer-stock-page">
+  <div class="producer-stock-container">
+    <div class="producer-stock-header">
+      <div class="title-group">
+        <h1>Stock Management</h1>
+        <p class="subtitle">Update inventory levels for your products</p>
+      </div>
+    </div>
+
+<!-- Stock rows are laid out for fast quantity edits across multiple products in one pass. -->
+    <div class="producer-stock-panel">
+      <form method="POST" action="{{ url_for('producer_stock') }}">
+        <div class="producer-stock-list">
+          {% for product in products %}
+          <div class="stock-row">
+            <div class="stock-product">
+              <div class="stock-img-wrapper">
+                <img
+                  src="{{ product['image_url'] }}"
+                  alt="{{ product['name'] }}"
+                  class="stock-img"
+                >
+              </div>
+              <div class="stock-info">
+                <h3>{{ product['name'] }}</h3>
+                <span class="stock-category">{{ product['category'] }}</span>
+              </div>
+            </div>
+<!-- Step controls keep stock updates quick without forcing the producer to type every value manually. -->
+            <div class="stock-controls">
+              <button type="button" class="minus-btn qty-btn" aria-label="Decrease stock">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.33301 8H12.6663" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <input type="hidden" name="product_id" value="{{ product['product_id'] }}">
+              <input
+                type="number"
+                name="stock[{{ product['product_id'] }}]"
+                class="stock-input form-control"
+                value="{{ product['stock'] }}"
+                min="0"
+                required
+                aria-label="Stock quantity for {{ product['name'] }}"
+              >
+
+              <button type="button" class="qty-btn plus-btn" aria-label="Increase stock">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 3.33331V12.6666" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M3.33301 8H12.6663" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <div class="stock-current">
+                <span>Current</span>
+                <strong><span class="stock-current-value">{{ product['stock'] }}</span> units</strong>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="stock-actions">
+          <button type="reset" class="stock-secondary-btn btn btn-secondary">Reset Changes</button>
+          <button type="submit" class="stock-primary-btn btn btn-primary">Save All Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="stock-tips">
+      <h2>Stock Management Tips</h2>
+      <ul>
+        <li>Update stock levels regularly to prevent overselling</li>
+        <li>Set up notifications for low stock items</li>
+        <li>Consider seasonal demand when planning inventory</li>
+        <li>Keep buffer stock to handle unexpected demand</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+{% endblock %}

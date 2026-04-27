@@ -1,0 +1,222 @@
+{% extends "base.html" %} {% block title %}{{ producer['business_name'] }} |
+Greenfield Local Hub{% endblock %} {% block content %}
+<section class="producer-public-page">
+  <div class="container producers-container producer-public-container">
+    <div class="back-link-wrap public-back-wrap">
+      <a
+        href="{{ url_for('producers') }}"
+        class="producer-public-back back-link btn btn-secondary"
+      >
+        <span aria-hidden="true">←</span>
+        <span>Back to Producers</span>
+      </a>
+    </div>
+<!-- Public producer profile combines the business story and product list so customers can explore everything in one place. -->
+    <div class="producer-public-layout">
+      <div class="producer-public-hero-media">
+        <img
+          src="{{ producer['image_url'] or '/static/images/default-producer.jpg' }}"
+          alt="Profile photo for {{ producer['business_name'] }}"
+          class="producer-public-hero-image"
+        />
+      </div>
+
+      <div class="producer-public-panel">
+        <div class="producer-public-panel_header">
+          <h1>{{ producer['business_name'] }}</h1>
+
+          <div class="producer-card-public_location">
+            <span class="producer-card-public_location-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M13.3332 6.66667C13.3332 9.99534 9.6405 13.462 8.4005 14.5327C8.28499 14.6195 8.14437 14.6665 7.99984 14.6665C7.85531 14.6665 7.71469 14.6195 7.59917 14.5327C6.35917 13.462 2.6665 9.99534 2.6665 6.66667C2.6665 5.25218 3.22841 3.89563 4.2286 2.89543C5.2288 1.89524 6.58535 1.33334 7.99984 1.33334C9.41433 1.33334 10.7709 1.89524 11.7711 2.89543C12.7713 3.89563 13.3332 5.25218 13.3332 6.66667Z"
+                  fill="#717171"
+                />
+                <path
+                  d="M8 8.66666C9.10457 8.66666 10 7.77123 10 6.66666C10 5.56209 9.10457 4.66666 8 4.66666C6.89543 4.66666 6 5.56209 6 6.66666C6 7.77123 6.89543 8.66666 8 8.66666Z"
+                  fill="#717171"
+                />
+              </svg>
+            </span>
+            <span>{{ producer['business_address'] }}</span>
+          </div>
+
+          <p class="producer-card-public_description producer-public-summary">
+            {{ producer['description'] or 'Local producer committed to fresh,
+            sustainable food and traditional methods.' }}
+          </p>
+        </div>
+
+        <div class="producer-public-methods">
+          <div class="producer-card-public_methods-title">
+            <span class="producer-card-public_methods-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M10.3178 8.59333L11.3278 14.2773C11.3391 14.3443 11.3298 14.4131 11.3009 14.4745C11.2721 14.536 11.2252 14.5871 11.1665 14.6212C11.1077 14.6553 11.04 14.6706 10.9724 14.6651C10.9047 14.6597 10.8403 14.6337 10.7878 14.5907L8.40117 12.7993C8.28595 12.7133 8.14599 12.6667 8.00217 12.6667C7.85835 12.6667 7.71838 12.7133 7.60317 12.7993L5.2125 14.59C5.16005 14.633 5.09574 14.6589 5.02816 14.6644C4.96059 14.6698 4.89295 14.6546 4.83428 14.6206C4.7756 14.5866 4.72868 14.5356 4.69978 14.4742C4.67088 14.4129 4.66136 14.3442 4.6725 14.2773L5.68183 8.59333"
+                  stroke="#2E2E2E"
+                  stroke-width="1.33333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8 9.33333C10.2091 9.33333 12 7.54247 12 5.33333C12 3.12419 10.2091 1.33333 8 1.33333C5.79086 1.33333 4 3.12419 4 5.33333C4 7.54247 5.79086 9.33333 8 9.33333Z"
+                  stroke="#2E2E2E"
+                  stroke-width="1.33333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <span>Methods &amp; Certifications</span>
+          </div>
+<!-- Tags surface production methods and sustainability details in a way that is quick to scan. -->
+          <div class="producer-card-public_tags producer-public-tags">
+            {% if producer['production_method'] %}
+            <span class="producer-card-public_tag"
+              >{{ producer['production_method'] }}</span
+            >
+            {% endif %} {% if producer['sustainability_info'] %}
+            <span class="producer-card-public_tag"
+              >{{ producer['sustainability_info'] }}</span
+            >
+            {% endif %}
+            <span class="producer-card-public_tag">Fresh local produce</span>
+          </div>
+        </div>
+
+        <div class="producers-why producer-public-why">
+          <h2>Why Choose {{ producer['business_name'] }}?</h2>
+          <ul class="producer-public-why_list">
+            <li>100% traceable local products</li>
+            {% if producer['sustainability_info'] %}
+            <li>Committed to sustainable farming</li>
+            {% endif %} {% if producer['production_method'] %}
+            <li>
+              {{ producer['production_method']|capitalize }} methods with
+              consistent quality
+            </li>
+            {% endif %}
+            <li>Supports the local Greenfield economy</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<!-- Product list for this producer sits underneath the profile so the page still drives shopping actions. -->
+ 
+    <div class="producer-public-products-section">
+      <h2 class="producer-public-products-title">
+        Products from {{ producer['business_name'] }}
+      </h2>
+
+      <div class="products-grid producer-public-products-grid">
+        {% for product in products %}
+        <article class="products-card producer-public-product-card">
+          <a
+            href="{{ url_for('product_detail', product_id=product['product_id']) }}"
+            class="products-card_link"
+          >
+            <div class="products-card_image">
+              <img
+                src="{{ product['image_url'] }}"
+                alt="{{ product['name'] }} from {{ producer['business_name'] }}"
+              />
+            </div>
+
+            <div class="products-card_content">
+              <h2>{{ product['name'] }}</h2>
+              <p class="products-card_producer">
+                {{ producer['business_name'] }}
+              </p>
+              <p class="products-card_description">
+                {{ product['description'] }}
+              </p>
+
+              <div class="products-card_meta">
+                <div>
+                  <strong class="products-card_price"
+                    >£{{ '%.2f'|format(product['price']) }}</strong
+                  >
+                  <span class="products-card_unit">per item</span>
+                </div>
+                <span class="products-card_stock"
+                  >{{ product['stock'] }} in stock</span
+                >
+              </div>
+            </div>
+          </a>
+
+          <form
+            method="POST"
+            action="{{ url_for('add_to_cart', product_id=product['product_id']) }}"
+            class="products-card_form"
+          >
+            <input type="hidden" name="quantity" value="1" />
+            <button
+              type="submit"
+              class="producer-public-add-btn products-card_button btn btn-primary"
+            >
+              <span class="products-card_button-icon" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                >
+                  <g clip-path="url(#producerCardCartIcon)">
+                    <path
+                      d="M5.33341 14.6666C5.7016 14.6666 6.00008 14.3682 6.00008 14C6.00008 13.6318 5.7016 13.3333 5.33341 13.3333C4.96522 13.3333 4.66675 13.6318 4.66675 14C4.66675 14.3682 4.96522 14.6666 5.33341 14.6666Z"
+                      stroke="white"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.6667 14.6666C13.0349 14.6666 13.3333 14.3682 13.3333 14C13.3333 13.6318 13.0349 13.3333 12.6667 13.3333C12.2985 13.3333 12 13.6318 12 14C12 14.3682 12.2985 14.6666 12.6667 14.6666Z"
+                      stroke="white"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M1.3667 1.36664H2.70003L4.47337 9.64664C4.53842 9.94988 4.70715 10.221 4.95051 10.4132C5.19387 10.6055 5.49664 10.7069 5.8067 10.7H12.3267C12.6301 10.6995 12.9244 10.5955 13.1607 10.4052C13.3971 10.2149 13.5615 9.94966 13.6267 9.6533L14.7267 4.69997H3.41337"
+                      stroke="white"
+                      stroke-width="1.33333"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="producerCardCartIcon">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+              <span>Add to Cart</span>
+            </button>
+          </form>
+        </article>
+        {% else %}
+        <p class="producer-public-empty">
+          No products available from this producer yet.
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

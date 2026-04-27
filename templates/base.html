@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Greenfield Local Hub{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/main.css')}}"
+    />
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+  </head>
+  
+
+  <body>
+
+    
+
+      
+    <!-- Main site header with shared navigation, cart access, and account actions for every page. -->
+    <header class="site-header">
+      <div class="header-container">
+        <a href="{{url_for('homepage')}}" class="logo-area">
+          <div class="logo-icon">
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15.8888 16.5H19.9629C22.1239 16.5 24.1965 15.5986 25.7245 13.9942C27.2526 12.3897 28.1111 10.2135 28.1111 7.94446V6.51854H24.037C21.876 6.51854 19.8035 7.41992 18.2754 9.0244C16.7473 10.6289 15.8888 12.805 15.8888 15.0741H11.8148C9.65375 15.0741 7.58124 14.1727 6.05316 12.5682C4.52509 10.9637 3.66663 8.78761 3.66663 6.51854V3.66669H7.7407C9.90172 3.66669 11.9742 4.56807 13.5023 6.17255C15.0304 7.77703 15.8888 9.95317 15.8888 12.2222V20.7778M9.09872 20.7778H22.679V26.4815C22.679 27.2379 22.3928 27.9632 21.8835 28.4981C21.3741 29.0329 20.6833 29.3333 19.9629 29.3333H11.8148C11.0944 29.3333 10.4036 29.0329 9.89424 28.4981C9.38488 27.9632 9.09872 27.2379 9.09872 26.4815V20.7778Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div class="logo-text">
+            <h1>Greenfield Local Hub</h1>
+            <p>Fresh. Local. Sustainable.</p>
+          </div>
+        </a>
+
+        <nav class="main-nav">
+          <a href="{{url_for('homepage')}}" class="nav-link">Home</a>
+          <a href="{{url_for('products')}}" class="nav-link">Products</a>
+          <a href="{{url_for('producers')}}" class="nav-link">Producers</a>
+          <a href="{{url_for('about')}}" class="nav-link">About</a>
+        </nav>
+
+        <!-- Keep account and basket shortcuts together here so the top bar stays consistent across customer and producer flows. -->
+        <div class="header-actions">
+          <a href="{{ url_for('basket') }}" class="icon-btn cart-icon" >
+            <svg
+              class=""
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              
+            >
+              <path 
+                d="M6.66659 18.3334C7.12682 18.3334 7.49992 17.9603 7.49992 17.5C7.49992 17.0398 7.12682 16.6667 6.66659 16.6667C6.20635 16.6667 5.83325 17.0398 5.83325 17.5C5.83325 17.9603 6.20635 18.3334 6.66659 18.3334Z"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.8333 18.3334C16.2936 18.3334 16.6667 17.9603 16.6667 17.5C16.6667 17.0398 16.2936 16.6667 15.8333 16.6667C15.3731 16.6667 15 17.0398 15 17.5C15 17.9603 15.3731 18.3334 15.8333 18.3334Z"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M1.70825 1.70831H3.37492L5.59159 12.0583C5.6729 12.4374 5.88381 12.7762 6.18801 13.0165C6.49221 13.2568 6.87067 13.3836 7.25825 13.375H15.4083C15.7876 13.3744 16.1553 13.2444 16.4508 13.0065C16.7462 12.7686 16.9517 12.4371 17.0333 12.0666L18.4083 5.87498H4.26659"
+                stroke="currentColor"
+                stroke-width="1.66667"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+
+            
+            {% if cart_count > 0 %}
+            <span class="cart-badge">{{ cart_count }}</span>
+            {% endif %}
+         </a>
+
+          {% if current_user.is_authenticated %} {% if current_user.user_type ==
+          "customer" %}
+          <a href="{{ url_for('customer_dashboard') }}" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M15.8334 17.5V15.8333C15.8334 14.9493 15.4822 14.1014 14.8571 13.4763C14.232 12.8512 13.3841 12.5 12.5001 12.5H7.50008C6.61603 12.5 5.76818 12.8512 5.14306 13.4763C4.51794 14.1014 4.16675 14.9493 4.16675 15.8333V17.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.0001 9.16667C11.841 9.16667 13.3334 7.67428 13.3334 5.83333C13.3334 3.99238 11.841 2.5 10.0001 2.5C8.15913 2.5 6.66675 3.99238 6.66675 5.83333C6.66675 7.67428 8.15913 9.16667 10.0001 9.16667Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </a>
+          
+          {% elif current_user.user_type == "producer" %}
+          <a href="{{ url_for('producer_dashboard') }}" class="icon-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M15.8334 17.5V15.8333C15.8334 14.9493 15.4822 14.1014 14.8571 13.4763C14.232 12.8512 13.3841 12.5 12.5001 12.5H7.50008C6.61603 12.5 5.76818 12.8512 5.14306 13.4763C4.51794 14.1014 4.16675 14.9493 4.16675 15.8333V17.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.0001 9.16667C11.841 9.16667 13.3334 7.67428 13.3334 5.83333C13.3334 3.99238 11.841 2.5 10.0001 2.5C8.15913 2.5 6.66675 3.99238 6.66675 5.83333C6.66675 7.67428 8.15913 9.16667 10.0001 9.16667Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </a>
+          {% endif %} {% else %}
+          <!-- Not logged in → go to signin -->
+          <a href="{{ url_for('customer_signin') }}" class="icon-btn">
+           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M15.8334 17.5V15.8333C15.8334 14.9493 15.4822 14.1014 14.8571 13.4763C14.232 12.8512 13.3841 12.5 12.5001 12.5H7.50008C6.61603 12.5 5.76818 12.8512 5.14306 13.4763C4.51794 14.1014 4.16675 14.9493 4.16675 15.8333V17.5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10.0001 9.16667C11.841 9.16667 13.3334 7.67428 13.3334 5.83333C13.3334 3.99238 11.841 2.5 10.0001 2.5C8.15913 2.5 6.66675 3.99238 6.66675 5.83333C6.66675 7.67428 8.15913 9.16667 10.0001 9.16667Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </a>
+          {% endif %} {% if current_user.is_authenticated %}
+          <a href="{{url_for('logout')}}" class="customer-signin-btn btn btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M10 2H12.6667C13.0203 2 13.3594 2.14048 13.6095 2.39052C13.8595 2.64057 14 2.97971 14 3.33333V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H10"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M6.66675 11.3334L10.0001 8.00002L6.66675 4.66669"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10 8H2"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Sign out</a
+          >
+          {% else %}
+          <a href="{{url_for('customer_signin')}}" class="customer-signin-btn btn btn-outline">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M10 2H12.6667C13.0203 2 13.3594 2.14048 13.6095 2.39052C13.8595 2.64057 14 2.97971 14 3.33333V12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14H10"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M6.66675 11.3334L10.0001 8.00002L6.66675 4.66669"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10 8H2"
+                stroke="currentColor"
+                stroke-width="1.33333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Sign in</a
+          >
+          {% endif %}
+        </div>
+      </div>
+    </header>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+      <!-- Flash messages are rendered globally so success and error states show up no matter which route triggered them. -->
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash {{ category if category else 'info' }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+
+    <main>{% block content %}{% endblock %}</main>
+    <!-- Shared footer with brand, contact, and opening information used across the whole site. -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>About Greenfield Local Hub</h3>
+            <p>
+              Supporting local farmers and food producers since 2020. Fresh,
+              sustainable, and traceable products delivered to your door.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h3>Contact</h3>
+            <div class="contact-info">
+              <p>Email: hello@greenfieldhub.local</p>
+              <p>Phone: 01234 567890</p>
+              <p>Address: The Hub, Greenfield, GF1 1AA</p>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Opening Hours</h3>
+            <div class="hours-info">
+              <p>Monday - Friday: 8am - 6pm</p>
+              <p>Saturday: 8am - 4pm</p>
+              <p>Sunday: 10am - 2pm</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy 2026 Greenfield Local Hub.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

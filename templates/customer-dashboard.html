@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="customer-account-page">
+  <div class="container customer-account-container">
+    <h1 class="customer-account-title">My Account</h1>
+    
+<!-- Dashboard tabs let the customer switch sections without leaving the account area. -->
+    <div class="tabs-list customer-account-tabs" data-default-tab="{{ active_tab }}">
+      <button
+        class="tab-item btn btn-secondary {% if active_tab == 'customer-profile' %}active{% endif %}"
+        data-page="customer-profile"
+        onclick="loadPage('customer-profile')"
+        type="button"
+      >
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8.00033 8C9.47309 8 10.667 6.80609 10.667 5.33333C10.667 3.86057 9.47309 2.66666 8.00033 2.66666C6.52756 2.66666 5.33366 3.86057 5.33366 5.33333C5.33366 6.80609 6.52756 8 8.00033 8Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3.33366 13.3333C3.33366 12.0956 3.82533 10.9087 4.70049 10.0335C5.57566 9.15833 6.76251 8.66666 8.00033 8.66666C9.23814 8.66666 10.425 9.15833 11.3002 10.0335C12.1753 10.9087 12.667 12.0956 12.667 13.3333" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Profile</span>
+      </button>
+      <button
+        class="tab-item btn btn-secondary {% if active_tab == 'customer-orders' %}active{% endif %}"
+        data-page="customer-orders"
+        onclick="loadPage('customer-orders')"
+        type="button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M7.33333 14.4867C7.53603 14.6037 7.76595 14.6653 8 14.6653C8.23405 14.6653 8.46397 14.6037 8.66667 14.4867L13.3333 11.82C13.5358 11.7031 13.704 11.535 13.821 11.3326C13.938 11.1301 13.9998 10.9005 14 10.6667V5.33335C13.9998 5.09953 13.938 4.86989 13.821 4.66746C13.704 4.46503 13.5358 4.29692 13.3333 4.18002L8.66667 1.51335C8.46397 1.39633 8.23405 1.33472 8 1.33472C7.76595 1.33472 7.53603 1.39633 7.33333 1.51335L2.66667 4.18002C2.46418 4.29692 2.29599 4.46503 2.17897 4.66746C2.06196 4.86989 2.00024 5.09953 2 5.33335V10.6667C2.00024 10.9005 2.06196 11.1301 2.17897 11.3326C2.29599 11.535 2.46418 11.7031 2.66667 11.82L7.33333 14.4867Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 14.6667V8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2.19336 4.66669L8.00003 8.00002L13.8067 4.66669" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5 2.84668L11 6.28001" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <span>Orders</span>
+      </button>
+      <button
+        class="tab-item btn btn-secondary {% if active_tab == 'customer-loyalty' %}active{% endif %}"
+        data-page="customer-loyalty"
+        onclick="loadPage('customer-loyalty')"
+        type="button"
+      >
+       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+  <path d="M10.3178 8.59332L11.3278 14.2773C11.3391 14.3443 11.3298 14.413 11.3009 14.4745C11.2721 14.5359 11.2252 14.5871 11.1665 14.6212C11.1077 14.6553 11.04 14.6706 10.9724 14.6651C10.9047 14.6597 10.8403 14.6337 10.7878 14.5907L8.40117 12.7993C8.28595 12.7132 8.14599 12.6667 8.00217 12.6667C7.85835 12.6667 7.71838 12.7132 7.60317 12.7993L5.2125 14.59C5.16005 14.6329 5.09574 14.6589 5.02816 14.6644C4.96059 14.6698 4.89295 14.6545 4.83428 14.6206C4.7756 14.5866 4.72868 14.5355 4.69978 14.4742C4.67088 14.4129 4.66136 14.3442 4.6725 14.2773L5.68183 8.59332" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M8 9.33331C10.2091 9.33331 12 7.54245 12 5.33331C12 3.12417 10.2091 1.33331 8 1.33331C5.79086 1.33331 4 3.12417 4 5.33331C4 7.54245 5.79086 9.33331 8 9.33331Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+        <span>Loyalty</span>
+      </button>
+    </div>
+
+    <div id="app" class="customer-account-app"></div>
+  </div>
+</section>
+
+{% endblock %}

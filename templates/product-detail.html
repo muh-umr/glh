@@ -1,0 +1,174 @@
+{% extends "base.html" %} {% block title %}{{ product['name'] }} | Greenfield
+Local Hub{% endblock %} {% block content %}
+<section class="producer-public-page product-page">
+  <div class="container producers-container producer-public-container product-page_container">
+    <div class="back-link-wrap public-back-wrap">
+      <a href="{{ url_for('products') }}" class="producer-public-back back-link btn btn-secondary">
+        <span aria-hidden="true">←</span>
+        <span>Back to Products</span>
+      </a>
+    </div>
+
+    <!-- Main product detail layout keeps the product image, order controls, and producer context in one view. -->
+    <div class="producer-public-layout product-page_layout">
+      <div class="producer-public-hero-media product-page_media">
+        <div class="image-card">
+          <img src="{{ product['image_url'] }}" alt="{{ product['name'] }} from {{ product['business_name'] }}"
+            class="producer-public-hero-image product-page_image" />
+        </div>
+      </div>
+
+      <div class="producer-public-panel product-page_panel">
+        <div class="producer-public-panel_header product-page_header">
+          <span class="producer-card-public_tag">{{ product['category'] }}</span>
+
+          <h1>{{ product['name'] }}</h1>
+
+          <p class="producer-card-public_description product-page_price-line">
+            <strong class="products-card_price">£{{ '%.2f'|format(product['price']) }}</strong>
+            <span class="products-card_unit">per item</span>
+          </p>
+
+          <span class="products-card_stock">{{ product['stock'] }} in stock</span>
+
+          <p class="producer-card-public_description producer-public-summary">
+            {{ product['description'] }}
+          </p>
+        </div>
+
+        <!-- Quantity controls and add-to-cart action are grouped here so ordering stays close to the product details. -->
+        <form method="POST" action="{{ url_for('add_to_cart', product_id=product['product_id']) }}"
+          class="product-page_form">
+          <div class="products-producers-control product-page_controls">
+            <label for="quantity" class="products-filters_label">Quantity</label>
+
+            <div class="stock-controls product-page_qty">
+              <button type="button" class="qty-btn" id="minusQty" aria-label="Decrease quantity">
+                −
+              </button>
+              <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product['stock'] }}"
+                class="stock-input form-control product-page_qty-input" />
+              <button type="button" class="qty-btn" id="plusQty" aria-label="Increase quantity">
+                +
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="products-card_button btn btn-primary product-page_add-btn">
+            <span class="products-card_button-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <g clip-path="url(#productDetailCartIcon)">
+                  <path
+                    d="M5.33341 14.6666C5.7016 14.6666 6.00008 14.3682 6.00008 14C6.00008 13.6318 5.7016 13.3333 5.33341 13.3333C4.96522 13.3333 4.66675 13.6318 4.66675 14C4.66675 14.3682 4.96522 14.6666 5.33341 14.6666Z"
+                    stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M12.6667 14.6666C13.0349 14.6666 13.3333 14.3682 13.3333 14C13.3333 13.6318 13.0349 13.3333 12.6667 13.3333C12.2985 13.3333 12 13.6318 12 14C12 14.3682 12.2985 14.6666 12.6667 14.6666Z"
+                    stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M1.3667 1.36664H2.70003L4.47337 9.64664C4.53842 9.94988 4.70715 10.221 4.95051 10.4132C5.19387 10.6055 5.49664 10.7069 5.8067 10.7H12.3267C12.6301 10.6995 12.9244 10.5955 13.1607 10.4052C13.3971 10.2149 13.5615 9.94966 13.6267 9.6533L14.7267 4.69997H3.41337"
+                    stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="productDetailCartIcon">
+                    <rect width="16" height="16" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </span>
+            <span>Add to Cart</span>
+          </button>
+        </form>
+
+        <!-- Producer summary gives the customer some context about where the product came from. -->
+        <article class="products-card product-page_producer-card">
+          <div class="products-card_content product-page_producer-content">
+            <h2>From {{ product['business_name'] }}</h2>
+
+            <div class="product-page_producer-summary">
+              {% if product['producer_image'] %}
+              <div class="products-card_image product-page_producer-image-wrap">
+                <img src="{{ product['producer_image'] }}" alt="Profile photo for {{ product['business_name'] }}" />
+              </div>
+              {% endif %}
+
+              <div class="product-page_producer-copy">
+                <p class="products-card_description">
+                  {{ product['producer_description'] or 'Local producer profile
+                  coming soon.' }}
+                </p>
+
+                <div class="producer-card-public_location product-page_producer-location">
+                  <span class="producer-card-public_location-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path
+                        d="M13.3332 6.66667C13.3332 9.99534 9.6405 13.462 8.4005 14.5327C8.28499 14.6195 8.14437 14.6665 7.99984 14.6665C7.85531 14.6665 7.71469 14.6195 7.59917 14.5327C6.35917 13.462 2.6665 9.99534 2.6665 6.66667C2.6665 5.25218 3.22841 3.89563 4.2286 2.89543C5.2288 1.89524 6.58535 1.33334 7.99984 1.33334C9.41433 1.33334 10.7709 1.89524 11.7711 2.89543C12.7713 3.89563 13.3332 5.25218 13.3332 6.66667Z"
+                        fill="#717171" />
+                      <path
+                        d="M8 8.66666C9.10457 8.66666 10 7.77123 10 6.66666C10 5.56209 9.10457 4.66666 8 4.66666C6.89543 4.66666 6 5.56209 6 6.66666C6 7.77123 6.89543 8.66666 8 8.66666Z"
+                        fill="#717171" />
+                    </svg>
+                  </span>
+                  <span>{{ product['business_address']}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="producer-card-public_tags product-page_producer-tags">
+              {% if product['production_method'] %}
+              <span class="producer-card-public_tag">{{ product['production_method'] }}</span>
+              {% endif %} {% if product['sustainability_info'] %}
+              <span class="producer-card-public_tag">{{ product['sustainability_info'] }}</span>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="products-card_form product-page_producer-actions">
+            <a href="{{ url_for('producer_public_profile', producer_id=product['producer_id']) }}"
+              class="producer-card-public_button btn btn-primary">
+              View Producer Profile
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <section class="producer-public-products-section">
+      <h2 class="producer-public-products-title">More from this category</h2>
+
+      <div class="products-grid producer-public-products-grid product-page_related-grid">
+        {% for related in related_products %}
+        <article class="products-card product-page_related-card">
+          <a href="{{ url_for('product_detail', product_id=related['product_id']) }}" class="products-card_link">
+            <div class="products-card_image">
+              <img src="{{ related['image_url'] }}" alt="{{ related['name'] }} from {{ related['business_name'] }}" />
+            </div>
+
+            <div class="products-card_content">
+              <h2>{{ related['name'] }}</h2>
+              <p class="products-card_producer">
+                {{ related['business_name'] }}
+              </p>
+              <p class="products-card_description">
+                {{ related['description'] }}
+              </p>
+              <div class="products-card_meta">
+                <div>
+                  <strong class="products-card_price">£{{ '%.2f'|format(related['price']) }}</strong>
+                  <span class="products-card_unit">per item</span>
+                </div>
+                <span class="products-card_stock">{{ related['stock'] }} in stock</span>
+              </div>
+            </div>
+          </a>
+        </article>
+        {% else %}
+        <p class="producer-public-empty">
+          No other products in this category yet.
+        </p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</section>
+
+{% endblock %}

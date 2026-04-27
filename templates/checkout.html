@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% block title %}Checkout | Greenfield Local Hub{% endblock %}
+
+{% block content %}
+<section class="checkout-page">
+  <div class="container checkout-container">
+    <h1 class="checkout-title">Checkout</h1>
+
+<!-- Checkout uses a two-column layout so the form and the running order summary stay visible together. -->
+    <form method="POST" action="{{ url_for('checkout') }}" class="checkout-layout">
+      <div class="checkout-main">
+        <section class="checkout-card">
+          <h2>Contact Information</h2>
+
+          <div class="checkout-field-group">
+            <label for="full_name">Full Name *</label>
+            <input
+              type="text"
+              id="full_name"
+              name="full_name"
+              class="checkout-input form-control"
+              value="{{ customer['name'] }}"
+              required
+            >
+          </div>
+
+          <div class="checkout-two-cols">
+            <div class="checkout-field-group">
+              <label for="email">Email *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="checkout-input form-control"
+                value="{{ customer['email'] }}"
+                required
+              >
+            </div>
+
+            <div class="checkout-field-group">
+              <label for="phone_number">Phone Number *</label>
+              <input
+                type="text"
+                id="phone_number"
+                name="phone_number"
+                class="checkout-input form-control"
+                value="{{ customer['phone_number'] }}"
+                placeholder="07XXX XXXXXX"
+                required
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="checkout-card">
+          <h2>Delivery Method</h2>
+
+<!-- Delivery and collection choices are presented as cards to make the order method feel more deliberate. -->
+          <label class="delivery-option-card">
+            <input
+              type="radio"
+              name="collection_or_delivery"
+              value="Collection"
+              class="delivery-radio"
+              {% if selected_method != "Delivery" %}checked{% endif %}
+            >
+            <span class="radio-indicator" aria-hidden="true">
+              <span class="radio-outer"><span class="radio-inner"></span></span>
+            </span>
+            <div class="delivery-option-content">
+              <div class="delivery-option-title">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M13.3337 5.33335H2.66699V13.3334H13.3337V5.33335Z" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M5.33301 5.33335V4.00002C5.33301 3.6464 5.47348 3.30726 5.72353 3.05721C5.97358 2.80716 6.31272 2.66669 6.66634 2.66669H9.33301C9.68663 2.66669 10.0258 2.80716 10.2758 3.05721C10.5259 3.30726 10.6663 3.6464 10.6663 4.00002V5.33335" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Collection from Hub</span>
+              </div>
+              <p>Collect from Greenfield Local Hub</p>
+              <p>The Hub, Greenfield, GF1 1AA</p>
+              <p>Ready for collection within 24 hours</p>
+              <div class="delivery-price free">FREE</div>
+            </div>
+          </label>
+
+          <label class="delivery-option-card">
+            <input
+              type="radio"
+              name="collection_or_delivery"
+              value="Delivery"
+              class="delivery-radio"
+              {% if selected_method == "Delivery" %}checked{% endif %}
+            >
+            <span class="radio-indicator" aria-hidden="true">
+              <span class="radio-outer"><span class="radio-inner"></span></span>
+            </span>
+            <div class="delivery-option-content">
+              <div class="delivery-option-title">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+  <path d="M12.5 17.5V10.8333C12.5 10.6123 12.4122 10.4004 12.2559 10.2441C12.0996 10.0878 11.8877 10 11.6667 10H8.33333C8.11232 10 7.90036 10.0878 7.74408 10.2441C7.5878 10.4004 7.5 10.6123 7.5 10.8333V17.5" stroke="#2B4625" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2.5 8.33333C2.49994 8.09089 2.55278 7.85135 2.65482 7.63143C2.75687 7.41151 2.90566 7.2165 3.09083 7.06L8.92417 2.06083C9.22499 1.80659 9.60613 1.6671 10 1.6671C10.3939 1.6671 10.775 1.80659 11.0758 2.06083L16.9092 7.06C17.0943 7.2165 17.2431 7.41151 17.3452 7.63143C17.4472 7.85135 17.5001 8.09089 17.5 8.33333V15.8333C17.5 16.2754 17.3244 16.6993 17.0118 17.0118C16.6993 17.3244 16.2754 17.5 15.8333 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V8.33333Z" stroke="#2B4625" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+                <span>Home Delivery</span>
+              </div>
+              <p>Delivered to your door within 2-3 days</p>
+              <p>Available Monday - Saturday</p>
+              <div class="delivery-price">£3.50</div>
+            </div>
+          </label>
+        </section>
+
+        <section class="checkout-card">
+          <h2>Schedule</h2>
+
+          <div class="checkout-two-cols">
+            <div class="checkout-field-group">
+              <label for="scheduled_date">Scheduled Date *</label>
+              <input
+                type="date"
+                id="scheduled_date"
+                name="scheduled_date"
+                class="checkout-input form-control"
+                min="{{ min_date }}"
+                value="{{ request.form.get('scheduled_date', '') }}"
+                required
+              >
+            </div>
+
+            <div class="checkout-field-group">
+              <label for="scheduled_slot">Time Slot *</label>
+              <select id="scheduled_slot" name="scheduled_slot" class="checkout-input form-control" required>
+                {% for slot in slot_options %}
+                <option value="{{ slot }}" {% if request.form.get('scheduled_slot') == slot %}selected{% endif %}>
+                  {{ slot }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="checkout-card">
+          <h2>Loyalty Reward</h2>
+
+          <div class="checkout-field-group">
+            <label for="loyalty_reward_code">Redeem Reward</label>
+            <select id="loyalty_reward_code" name="loyalty_reward_code" class="checkout-input form-control">
+              <option value="">No reward</option>
+              {% for reward in rewards %}
+              <option
+                value="{{ reward.code }}"
+                {% if selected_reward == reward.code %}selected{% endif %}
+                {% if not reward.is_available %}disabled{% endif %}
+              >
+                {{ reward.title }} ({{ reward.points_required }} points)
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+        </section>
+
+        <section class="checkout-card">
+          <h2>Payment</h2>
+          <div class="payment-placeholder"></div>
+        </section>
+      </div>
+      
+<!-- This summary block gives the customer one last check before placing the order. -->
+      <aside class="checkout-summary-card">
+        <h2>Order Summary</h2>
+
+        <div class="checkout-summary-items">
+          {% for item in items %}
+          <div class="checkout-summary-item">
+            <span>{{ item['name'] }} × {{ item['quantity'] }}</span>
+            <span>£{{ '%.2f'|format(item['price'] * item['quantity']) }}</span>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="checkout-summary-divider"></div>
+
+        <div class="checkout-summary-row">
+          <span>Subtotal</span>
+          <span id="checkoutSubtotal">£{{ '%.2f'|format(subtotal) }}</span>
+        </div>
+
+        <div class="checkout-summary-row">
+          <span>Delivery</span>
+          <span id="checkoutDelivery" class="{% if default_delivery == 0 %}checkout-success-text{% endif %}">{% if default_delivery == 0 %}FREE{% else %}£{{ '%.2f'|format(default_delivery) }}{% endif %}</span>
+        </div>
+
+        <div class="checkout-summary-row">
+          <span>Loyalty Discount</span>
+          <span id="checkoutLoyalty">£0.00</span>
+        </div>
+
+        <div class="checkout-summary-divider"></div>
+
+        <div class="checkout-summary-total">
+          <span>Total</span>
+          <strong id="checkoutTotal">£{{ '%.2f'|format(total) }}</strong>
+        </div>
+
+        <button type="submit" class="checkout-place-order-btn btn btn-primary">
+          Place Order
+        </button>
+
+        <p class="checkout-terms">
+          By placing this order, you agree to our terms and conditions
+        </p>
+      </aside>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const subtotal = {{ subtotal|tojson }};
+    const collectionRadio = document.querySelector('input[value="Collection"]');
+    const deliveryRadio = document.querySelector('input[value="Delivery"]');
+    const scheduledSlot = document.getElementById("scheduled_slot");
+    const loyaltyReward = document.getElementById("loyalty_reward_code");
+    const deliveryText = document.getElementById("checkoutDelivery");
+    const loyaltyText = document.getElementById("checkoutLoyalty");
+    const totalText = document.getElementById("checkoutTotal");
+    const collectionSlots = {{ COLLECTION_SLOTS|tojson if COLLECTION_SLOTS is defined else ['09:00-11:00','11:00-13:00','14:00-16:00']|tojson }};
+    const deliverySlots = {{ DELIVERY_SLOTS|tojson if DELIVERY_SLOTS is defined else ['09:00-12:00','12:00-15:00','15:00-18:00']|tojson }};
+
+    function updateSlotOptions() {
+      const slots = deliveryRadio.checked ? deliverySlots : collectionSlots;
+      const selected = scheduledSlot.value;
+
+      scheduledSlot.innerHTML = "";
+      slots.forEach(function (slot) {
+        const option = document.createElement("option");
+        option.value = slot;
+        option.textContent = slot;
+        if (slot === selected) {
+          option.selected = true;
+        }
+        scheduledSlot.appendChild(option);
+      });
+    }
+
+    function updateSummary() {
+      let delivery = 0;
+      let loyaltyDiscount = 0;
+      if (deliveryRadio.checked) {
+        delivery = subtotal >= 30 ? 0 : 3.50;
+      }
+
+      if (loyaltyReward.value === "FIVE_OFF") {
+        loyaltyDiscount = Math.min(5, subtotal);
+      } else if (loyaltyReward.value === "FREE_DELIVERY") {
+        loyaltyDiscount = delivery;
+      }
+
+      if (delivery === 0) {
+        deliveryText.textContent = "FREE";
+        deliveryText.classList.add("checkout-success-text");
+      } else {
+        deliveryText.textContent = "£" + delivery.toFixed(2);
+        deliveryText.classList.remove("checkout-success-text");
+      }
+
+      loyaltyText.textContent = "£" + loyaltyDiscount.toFixed(2);
+      totalText.textContent = "£" + Math.max(0, subtotal + delivery - loyaltyDiscount).toFixed(2);
+    }
+
+    collectionRadio.addEventListener("change", function () {
+      updateSlotOptions();
+      updateSummary();
+    });
+    deliveryRadio.addEventListener("change", function () {
+      updateSlotOptions();
+      updateSummary();
+    });
+    collectionRadio.addEventListener("change", updateSummary);
+    deliveryRadio.addEventListener("change", updateSummary);
+    loyaltyReward.addEventListener("change", updateSummary);
+
+    updateSlotOptions();
+    updateSummary();
+  });
+  
+</script>
+{% endblock %}
